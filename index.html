@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>계정 탈퇴</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <!-- 진입 화면 -->
+    <div id="screen-intro" class="screen active">
+      <div class="popup">
+        <p>계정을 탈퇴하시겠습니까?</p>
+        <div class="buttons">
+          <button onclick="startFlow()">예</button>
+          <button onclick="exit()">아니오</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 반복 확인 화면 -->
+    <div id="screen-confirm" class="screen">
+      <div class="popup" id="confirm-popup">
+        <p id="confirm-text">정말 탈퇴하시겠습니까?</p>
+        <div class="buttons">
+          <button id="yes-btn" onclick="nextConfirm()">예</button>
+          <button onclick="exit()">아니오</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 엔딩 화면 -->
+    <div id="screen-ending" class="screen">
+      <div class="ending-text">
+        <p>탈퇴하지 못했습니다</p>
+        <p>당신이 포기한 건가요,<br>아니면 포기하도록 만들어진 건가요?</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
