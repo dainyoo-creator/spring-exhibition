@@ -92,6 +92,29 @@ button:hover {
   background-color: #e8e8ed;
 }
 
+.loading-bar-wrap {
+  width: 100%;
+  background-color: #e8e8ed;
+  border-radius: 980px;
+  height: 6px;
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+
+.loading-bar {
+  height: 6px;
+  width: 0%;
+  background-color: #1d1d1f;
+  border-radius: 980px;
+  transition: width 0.3s ease;
+}
+
+#loading-percent {
+  font-size: 0.85rem;
+  color: #6e6e73;
+  margin-bottom: 0;
+}
+
 .ending-text {
   text-align: center;
   line-height: 2;
@@ -124,4 +147,3 @@ button:hover {
 .shake {
   animation: shake 0.4s ease;
 }
-
