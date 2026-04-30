@@ -22,7 +22,29 @@ function startFlow() {
 }
 
 function exit() {
-  alert("아니오를 선택하셨습니다.");
+  showScreen('screen-intro');
+  confirmStep = 0;
+
+  const popup = document.getElementById('confirm-popup');
+  const text = document.getElementById('confirm-text');
+  const yesBtn = document.getElementById('yes-btn');
+  const noBtn = document.getElementById('no-btn');
+  const buttons = document.querySelector('.buttons');
+
+  popup.style.padding = '40px';
+  popup.style.left = '';
+  popup.style.top = '';
+  popup.style.transform = '';
+  text.textContent = '정말 탈퇴하시겠습니까?';
+  yesBtn.style.opacity = '1';
+  yesBtn.style.fontSize = '0.95rem';
+  yesBtn.style.transform = '';
+  noBtn.style.fontSize = '0.95rem';
+  noBtn.style.backgroundColor = '';
+  noBtn.style.color = '';
+  buttons.style.flexDirection = 'row';
+  document.body.style.backgroundColor = '#f5f5f7';
+  yesBtn.removeEventListener('mouseover', escapeButton);
 }
 
 function nextConfirm() {
@@ -135,4 +157,9 @@ function showEnding() {
 
   document.getElementById('ending-time').textContent = timeText;
   showScreen('screen-ending');
+}
+
+function restart() {
+  exit();
+  startTime = Date.now();
 }

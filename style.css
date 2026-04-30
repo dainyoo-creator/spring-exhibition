@@ -115,25 +115,27 @@ button:hover {
   margin-bottom: 0;
 }
 
-.ending-text {
-  text-align: center;
-  line-height: 2;
-  padding: 40px;
-}
-
-.ending-text p:first-child {
-  font-size: 1.1rem;
-  margin-bottom: 32px;
-  color: #6e6e73;
-  font-weight: 400;
-}
-
-.ending-text p:last-child {
-  font-size: 1.6rem;
-  font-weight: 600;
-  color: #1d1d1f;
-  letter-spacing: -0.02em;
-  line-height: 1.6;
+#screen-ending { 
+background-color: #fdfdfd; 
+} 
+.ending-text { 
+text-align: center; 
+line-height: 2; 
+padding: 40px; 
+} 
+.ending-textp:first-child { 
+font-size: 6.4rem; 
+font-weight: 700; 
+margin-bottom: 24px; 
+color: #ffffff; 
+letter-spacing: -0.03em; 
+} 
+.ending-text p:last-child { 
+font-size: 1rem; 
+font-weight: 400; 
+color: #6e6e73; 
+letter-spacing: -0.01em;
+ line-height: 1.6; 
 }
 
 @keyframes shake {
