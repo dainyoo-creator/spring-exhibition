@@ -5,10 +5,10 @@
 }
 
 body {
-  background-color: #027d7d;
+  background-color: #008080;
   background-image: url("data:image/svg+xml,%3Csvg width='4' height='4' viewBox='0 0 4 4' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='1' height='1' fill='%23006666' opacity='0.4'/%3E%3C/svg%3E");
   font-family: 'MS Sans Serif', 'Segoe UI', Arial, sans-serif;
-  font-size: 13px;
+  font-size: 1vw;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -21,29 +21,29 @@ body {
 /* 바탕화면 아이콘 */
 .desktop-icons {
   position: fixed;
-  top: 16px;
-  left: 16px;
+  top: 2vh;
+  left: 1.5vw;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 2.5vh;
 }
 
 .desktop-icon {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: 0.5vh;
   cursor: pointer;
-  width: 64px;
+  width: 5vw;
 }
 
 .desktop-icon span:first-child {
-  font-size: 32px;
+  font-size: 2.5vw;
 }
 
 .desktop-icon span:last-child {
   color: #ffffff;
-  font-size: 11px;
+  font-size: 0.8vw;
   text-align: center;
   text-shadow: 1px 1px 1px #000;
 }
@@ -54,13 +54,13 @@ body {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 36px;
+  height: 4vh;
   background-color: #c0c0c0;
   border-top: 2px solid #ffffff;
   display: flex;
   align-items: center;
-  padding: 0 4px;
-  gap: 4px;
+  padding: 0 0.5vw;
+  gap: 0.5vw;
   z-index: 9999;
 }
 
@@ -70,13 +70,13 @@ body {
   border-left: 2px solid #ffffff;
   border-right: 2px solid #808080;
   border-bottom: 2px solid #808080;
-  padding: 4px 10px;
+  padding: 0.4vh 1vw;
   font-weight: bold;
-  font-size: 13px;
+  font-size: 0.9vw;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 0.3vw;
 }
 
 .taskbar-item {
@@ -85,8 +85,8 @@ body {
   border-left: 2px solid #ffffff;
   border-right: 2px solid #808080;
   border-bottom: 2px solid #808080;
-  padding: 4px 12px;
-  font-size: 12px;
+  padding: 0.4vh 1vw;
+  font-size: 0.9vw;
   cursor: pointer;
 }
 
@@ -96,8 +96,8 @@ body {
   border-left: 1px solid #808080;
   border-right: 1px solid #ffffff;
   border-bottom: 1px solid #ffffff;
-  padding: 4px 8px;
-  font-size: 12px;
+  padding: 0.4vh 0.8vw;
+  font-size: 0.9vw;
 }
 
 #app {
@@ -107,7 +107,7 @@ body {
   justify-content: center;
   align-items: center;
   position: relative;
-  margin-bottom: 36px;
+  margin-bottom: 4vh;
 }
 
 .screen {
@@ -129,7 +129,7 @@ body {
   border-left: 2px solid #ffffff;
   border-right: 2px solid #808080;
   border-bottom: 2px solid #808080;
-  min-width: 420px;
+  min-width: 32vw;
   position: absolute;
 }
 
@@ -137,17 +137,17 @@ body {
   background: linear-gradient(to right, #000080, #1084d0);
   color: #ffffff;
   font-weight: bold;
-  font-size: 13px;
-  padding: 4px 6px;
+  font-size: 1vw;
+  padding: 0.5vh 0.6vw;
   display: flex;
   justify-content: space-between;
   align-items: center;
   user-select: none;
-  gap: 6px;
+  gap: 0.5vw;
 }
 
 .titlebar-icon {
-  font-size: 14px;
+  font-size: 1vw;
 }
 
 .titlebar-title {
@@ -156,7 +156,7 @@ body {
 
 .window-titlebar-buttons {
   display: flex;
-  gap: 2px;
+  gap: 0.2vw;
 }
 
 .titlebar-btn {
@@ -165,9 +165,9 @@ body {
   border-left: 1px solid #ffffff;
   border-right: 1px solid #808080;
   border-bottom: 1px solid #808080;
-  width: 18px;
-  height: 16px;
-  font-size: 10px;
+  width: 1.4vw;
+  height: 2.5vh;
+  font-size: 0.7vw;
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -175,21 +175,22 @@ body {
   padding: 0;
   color: #000;
   font-family: 'MS Sans Serif', Arial, sans-serif;
+  min-width: unset;
 }
 
 .window-content {
-  padding: 24px 32px 28px;
+  padding: 2.5vh 3vw 3vh;
   text-align: center;
 }
 
 .window-icon {
-  font-size: 40px;
-  margin-bottom: 14px;
+  font-size: 3vw;
+  margin-bottom: 1.5vh;
 }
 
 .window-content p {
-  margin-bottom: 20px;
-  font-size: 14px;
+  margin-bottom: 2vh;
+  font-size: 1.1vw;
   color: #000;
   line-height: 1.5;
 }
@@ -197,7 +198,7 @@ body {
 /* 버튼 */
 .buttons {
   display: flex;
-  gap: 8px;
+  gap: 0.8vw;
   justify-content: center;
 }
 
@@ -207,11 +208,11 @@ button {
   border-left: 2px solid #ffffff;
   border-right: 2px solid #808080;
   border-bottom: 2px solid #808080;
-  padding: 6px 28px;
+  padding: 0.6vh 2.5vw;
   font-family: 'MS Sans Serif', Arial, sans-serif;
-  font-size: 13px;
+  font-size: 1vw;
   cursor: pointer;
-  min-width: 90px;
+  min-width: 7vw;
   color: #000;
 }
 
@@ -231,7 +232,7 @@ button:disabled {
   border: none;
   border-top: 1px solid #808080;
   border-bottom: 1px solid #ffffff;
-  margin: 0 8px 20px;
+  margin: 0 0.5vw 0;
 }
 
 /* 로딩바 */
@@ -242,8 +243,8 @@ button:disabled {
   border-left: 1px solid #808080;
   border-right: 1px solid #ffffff;
   border-bottom: 1px solid #ffffff;
-  height: 20px;
-  margin-bottom: 8px;
+  height: 2vh;
+  margin-bottom: 1vh;
   overflow: hidden;
 }
 
@@ -261,7 +262,7 @@ button:disabled {
 }
 
 #loading-percent {
-  font-size: 13px;
+  font-size: 1vw;
   color: #000;
   margin-bottom: 0;
 }
@@ -278,23 +279,23 @@ button:disabled {
 
 .ending-text {
   text-align: center;
-  padding: 60px 40px;
+  padding: 6vh 4vw;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 #ending-time {
-  font-size: 1.3rem;
+  font-size: 1.8vw;
   font-weight: normal;
   color: #ffffff;
-  margin-bottom: 32px;
+  margin-bottom: 3vh;
   display: block;
   font-family: 'MS Sans Serif', Arial, sans-serif;
 }
 
 #ending-question {
-  font-size: 2rem;
+  font-size: 3vw;
   font-weight: bold;
   color: #ffffff;
   display: block;
@@ -303,7 +304,7 @@ button:disabled {
 }
 
 .ending-text button {
-  margin-top: 48px;
+  margin-top: 5vh;
   background-color: #c0c0c0;
   color: #000;
 }
@@ -311,10 +312,10 @@ button:disabled {
 /* 흔들림 */
 @keyframes shake {
   0%, 100% { transform: translateX(0); }
-  20% { transform: translateX(-10px); }
-  40% { transform: translateX(10px); }
-  60% { transform: translateX(-6px); }
-  80% { transform: translateX(6px); }
+  20% { transform: translateX(-1vw); }
+  40% { transform: translateX(1vw); }
+  60% { transform: translateX(-0.6vw); }
+  80% { transform: translateX(0.6vw); }
 }
 
 .shake {
