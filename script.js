@@ -1,7 +1,5 @@
 const confirmTexts = [
   "정말 탈퇴하시겠습니까?",
-  "정말로 탈퇴하시겠습니까?",
-  "탈퇴하셔도 괜찮으신가요?",
   "탈퇴 후 후회하지 않으시겠습니까?",
   "정말 탈퇴를 원하시나요?",
   "계속 진행하시겠습니까?",
@@ -10,7 +8,6 @@ const confirmTexts = [
   "정말로 탈퇴하시겠습니까?",
   "탈퇴 의사를 다시 한번 확인해주세요",
   "지금 탈퇴하지 않으셔도 됩니다",
-  "탈퇴는 언제든지 가능합니다",
   "탈퇴 처리 중 오류가 발생했습니다. 다시 시도해주세요",
   "정말 마지막으로 확인합니다",
   "탈퇴 요청이 접수되었습니다. 계속하시겠습니까?",
@@ -98,25 +95,25 @@ function nextConfirm() {
   // 2단계 — 예 버튼 살짝 작아짐
   if (confirmStep === 2) {
     yesBtn = document.getElementById('yes-btn');
-    if (yesBtn) yesBtn.style.fontSize = '0.9rem';
+    if (yesBtn) yesBtn.style.fontSize = '0.9vw';
   }
 
-  // 3단계 — 버튼 위치 바뀜
-  if (confirmStep >= 3 && confirmStep < 6) {
-    buttonsEl.style.flexDirection = confirmStep % 2 === 0 ? 'row' : 'row-reverse';
-  }
-
-  // 4단계 — 창 흔들림
-  if (confirmStep === 4 || confirmStep === 8 || confirmStep === 13) {
+  // 3단계 — 창 흔들림
+  if (confirmStep === 3 || confirmStep === 8 || confirmStep === 19) {
     popup.classList.remove('shake');
     void popup.offsetWidth;
     popup.classList.add('shake');
   }
 
-  // 5단계 — 예 버튼 도망치기 1차
-  if (confirmStep === 5) {
+  // 4단계 — 예 버튼 도망치기 1차
+  if (confirmStep === 4) {
     yesBtn = document.getElementById('yes-btn');
     if (yesBtn) yesBtn.addEventListener('mouseover', escapeButton);
+  }
+
+  // 5단계 — 버튼 위치 바뀜
+  if (confirmStep === 5) {
+    buttonsEl.style.flexDirection = 'row-reverse';
   }
 
    // 6단계 — 아니오 두 개, hover하면 예로 바뀜
