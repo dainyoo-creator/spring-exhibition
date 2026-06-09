@@ -1,140 +1,1203 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>계정 탈퇴</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Drinks She Had That Spring</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Space+Grotesk:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #FCE7E8;
+    font-family: 'Gowun Dodum', 'Space Grotesk', sans-serif;
+    color: #4A2838;
+    font-size: clamp(0.9rem, 1.1vw, 1.2rem);
+  }
+
+  .screen {
+    position: fixed;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.6s ease;
+    overflow: hidden;
+  }
+  .screen.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .paper-grain {
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(244,163,142,0.10) 0%, transparent 45%),
+      radial-gradient(circle at 80% 70%, rgba(196,154,170,0.10) 0%, transparent 45%),
+      radial-gradient(circle at 50% 50%, rgba(255,235,200,0.05) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  /* Stars and dots scattered like a storybook */
+  .y2k-star {
+    position: absolute;
+    color: #E89B5C;
+    font-size: 1.4em;
+    pointer-events: none;
+    user-select: none;
+    opacity: 0.6;
+    animation: twinkle 3s ease-in-out infinite;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.35; transform: scale(0.9); }
+    50% { opacity: 0.85; transform: scale(1.1); }
+  }
+  .y2k-dot {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0.4;
+  }
+
+  /* === COVER === */
+  .cover-inner {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 4em 6em;
+    text-align: center;
+  }
+  .cover-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85em;
+    letter-spacing: 0.25em;
+    color: #8B5A6E;
+    text-transform: uppercase;
+    font-family: 'DM Mono', 'SF Mono', 'Menlo', monospace;
+  }
+  .cover-book-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    padding: 2em 0;
+  }
+  .cover-book {
+    width: 28em;
+    aspect-ratio: 3 / 4;
+    background: #FFFBF2;
+    position: relative;
+    border-radius: 1.2rem;
+    box-shadow:
+      inset 0 0 0 1px rgba(74,40,56,0.12),
+      0.5rem 0.6rem 0 #F0B8C2,
+      0.6rem 0.7rem 0 rgba(74,40,56,0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 3em;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.4s ease;
+  }
+  .cover-book:hover { transform: translateY(-0.3em) rotate(-1deg); }
+  .cover-book::before {
+    content: '';
+    position: absolute;
+    left: 1em; top: 1em; right: 1em; bottom: 1em;
+    border: 0.5px dashed rgba(74,40,56,0.25);
+    border-radius: 0.8rem;
+    pointer-events: none;
+  }
+  .cover-title {
+    font-size: 2.4em;
+    line-height: 1.18;
+    letter-spacing: 0.02em;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+  }
+  .cover-subtitle {
+    margin-top: 1.5em;
+    font-size: 1em;
+    line-height: 1.7;
+    color: #8B5A6E;
+    opacity: 0;
+    animation: fadeUp 1.4s 0.6s forwards;
+    font-family: 'Gowun Dodum', 'Space Grotesk', sans-serif;
+  }
+  .cover-dots {
+    margin-top: 2em;
+    display: flex;
+    gap: 0.5em;
+    opacity: 0;
+    animation: fadeUp 1.4s 1s forwards;
+  }
+  .cover-dots span {
+    width: 1.1em;
+    height: 1.1em;
+    border-radius: 50%;
+    opacity: 0.7;
+  }
+  .cover-meta {
+    margin-top: 1.4em;
+    font-size: 0.7em;
+    letter-spacing: 0.25em;
+    color: #C49AAA;
+    font-family: 'DM Mono', 'SF Mono', 'Menlo', monospace;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeUp 1.4s 1.4s forwards;
+  }
+  .cover-hint {
+    margin: 0 auto;
+    font-size: 0.75em;
+    letter-spacing: 0.25em;
+    color: #C49AAA;
+    font-family: 'DM Mono', 'SF Mono', 'Menlo', monospace;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeUp 1.4s 1.8s forwards;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(0.6em); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* === INTRO === */
+  .intro-inner {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 4em;
+    text-align: center;
+  }
+  .intro-text {
+    max-width: 32em;
+    font-size: 1.15em;
+    line-height: 2.2;
+    color: #4A2838;
+    font-family: 'Gowun Dodum', 'Space Grotesk', sans-serif;
+    letter-spacing: -0.01em;
+  }
+  .intro-text p {
+    margin-bottom: 1.4em;
+    opacity: 0;
+    transform: translateY(0.5em);
+    animation: introUp 1s ease-out forwards;
+  }
+  .intro-text p:nth-child(1) { animation-delay: 0.3s; }
+  .intro-text p:nth-child(2) { animation-delay: 1.2s; }
+  .intro-text p:nth-child(3) { animation-delay: 2.1s; }
+  .intro-text p:nth-child(4) { animation-delay: 3s; }
+  .intro-text p:nth-child(5) { animation-delay: 3.9s; }
+  .intro-quote {
+    color: #8B5A6E;
+    padding: 0.5em 0;
+    border-top: 0.5px solid rgba(154,142,118,0.4);
+    border-bottom: 0.5px solid rgba(154,142,118,0.4);
+    display: inline-block;
+    padding-left: 2em;
+    padding-right: 2em;
+  }
+  .intro-divider {
+    width: 3em;
+    height: 0.5px;
+    background: #C49AAA;
+    margin: 1em 0;
+    opacity: 0;
+    animation: introUp 1s 4.8s ease-out forwards;
+  }
+  .intro-next {
+    margin-top: 0.5em;
+    font-size: 0.8em;
+    letter-spacing: 0.25em;
+    color: #8B5A6E;
+    cursor: pointer;
+    padding: 0.8em 1.6em;
+    border: 0.5px solid #C49AAA;
+    border-radius: 999px;
+    background: transparent;
+    font-family: 'DM Mono', 'SF Mono', 'Menlo', monospace;
+    opacity: 0;
+    animation: introUp 1s 5.4s ease-out forwards;
+  }
+  .intro-next:hover { background: rgba(74,40,56,0.04); }
+  @keyframes introUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* === SPREAD === */
+  .spread-inner {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .spread-header {
+    text-align: center;
+    font-size: 0.75em;
+    letter-spacing: 0.25em;
+    color: #8B5A6E;
+    text-transform: uppercase;
+    padding: 3em 0 0;
+    font-family: 'DM Mono', 'SF Mono', 'Menlo', monospace;
+  }
+  .spread-folds {
+    flex: 1;
+    display: flex;
+    margin: 2em 4em 4em;
+    background: #FCE7E8;
+    box-shadow:
+      0 0.3rem 1rem rgba(74,40,56,0.06),
+      inset 0 0 0 1px rgba(74,40,56,0.08);
+  }
+  .fold {
+    flex: 1;
+    background: #FCE7E8;
+    border-right: 0.5px dashed rgba(74,40,56,0.25);
+    padding: 3em 2.5em;
+    cursor: pointer;
+    transition: background 0.4s;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  .fold::after {
+    content: '';
+    position: absolute;
+    right: 0; top: 0; bottom: 0;
+    width: 1.5em;
+    background: linear-gradient(to right, transparent, rgba(74,40,56,0.05));
+    pointer-events: none;
+  }
+  .fold:last-child { border-right: none; }
+  .fold:last-child::after { display: none; }
+  .fold:hover { background: #F5D0D2; }
+  .fold-num {
+    font-size: 0.9em;
+    letter-spacing: 0.3em;
+    color: #C49AAA;
+    font-family: 'DM Mono', 'SF Mono', 'Menlo', monospace;
+  }
+  .fold-name {
+    margin-top: 0.3em;
+    font-size: 3em;
+    letter-spacing: 0.04em;
+    line-height: 1;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+  }
+  .fold-sub {
+    margin-top: 1.5em;
+    font-size: 1em;
+    line-height: 1.6;
+    color: #8B5A6E;
+    min-height: 3.2em;
+    max-width: 18em;
+    font-family: 'Gowun Dodum', 'Space Grotesk', sans-serif;
+    letter-spacing: -0.01em;
+  }
+  .fold-strip {
+    margin-top: 2em;
+    display: flex;
+    gap: 0.3em;
+    height: 2em;
+    max-width: 20em;
+  }
+  .fold-strip .swatch {
+    flex: 1;
+    border-radius: 0.15rem;
+    opacity: 0.85;
+  }
+  .fold-count {
+    margin-top: auto;
+    font-size: 0.78em;
+    letter-spacing: 0.2em;
+    color: #8B5A6E;
+    font-family: 'DM Mono', 'SF Mono', 'Menlo', monospace;
+  }
+  .fold-arrow {
+    margin-top: 0.5em;
+    font-size: 0.72em;
+    letter-spacing: 0.15em;
+    color: #C49AAA;
+    font-family: 'DM Mono', 'SF Mono', 'Menlo', monospace;
+  }
+  .back-btn {
+    position: absolute;
+    top: 2em;
+    left: 2em;
+    font-size: 0.78em;
+    letter-spacing: 0.2em;
+    color: #8B5A6E;
+    cursor: pointer;
+    background: none;
+    border: 0.5px solid rgba(74,40,56,0.15);
+    font-family: 'DM Mono', 'SF Mono', 'Menlo', monospace;
+    padding: 0.6em 1em;
+    border-radius: 999px;
+    z-index: 10;
+  }
+  .back-btn:hover { background: rgba(74,40,56,0.04); }
+
+  /* === MONTH === */
+  .month-inner {
+    position: absolute;
+    inset: 0;
+    padding: 5em 4em 4em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .month-title {
+    font-size: 3.5em;
+    letter-spacing: 0.04em;
+    line-height: 1;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+  }
+  .month-sub {
+    font-size: 0.85em;
+    letter-spacing: 0.3em;
+    color: #8B5A6E;
+    text-transform: uppercase;
+    margin-top: 0.6em;
+    font-family: 'DM Mono', 'SF Mono', 'Menlo', monospace;
+  }
+  .month-line {
+    width: 4em;
+    height: 0.5px;
+    background: #C49AAA;
+    margin: 2em 0 1em;
+  }
+  .weekdays {
+    margin-top: 1.5em;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.4em;
+    font-size: 0.8em;
+    letter-spacing: 0.2em;
+    color: #C49AAA;
+    text-align: center;
+    font-family: 'DM Mono', 'SF Mono', 'Menlo', monospace;
+    width: min(50em, 90%);
+  }
+  .month-grid {
+    margin-top: 0.5em;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.4em;
+    width: min(50em, 90%);
+    flex: 1;
+    max-height: 50em;
+  }
+  .day-cell {
+    position: relative;
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1em;
+    color: #C49AAA;
+    font-family: 'DM Mono', 'SF Mono', 'Menlo', monospace;
+  }
+  .day-cell.stamped {
+    cursor: pointer;
+    color: #4A2838;
+  }
+  /* === STAMP using PNG image with blend mode === */
+  .stamp-img {
+    position: absolute;
+    width: 110%;
+    height: 110%;
+    left: -5%;
+    top: -5%;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+    transform: rotate(-4deg);
+    transition: transform 0.3s;
+    pointer-events: none;
+  }
+  .day-cell.stamped:hover .stamp-img {
+    transform: rotate(-1deg) scale(1.08);
+  }
+  .stamp-num {
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'DM Mono', 'SF Mono', 'Menlo', monospace;
+    font-size: 1.1em;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    pointer-events: none;
+  }
+
+  /* === SPECIMEN === */
+  .specimen-bg {
+    position: absolute;
+    inset: 0;
+    transition: background 1s ease;
+  }
+  .specimen-burst {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  /* The glass that appears first, then the color flows out from it */
+  .specimen-glass {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0;
+    transform: translateY(2em) scale(0.85);
+    transition: opacity 1s ease-out, transform 1.4s ease-out, filter 1.5s ease-out;
+  }
+  .specimen-glass.show {
+    opacity: 1;
+    transform: translateY(-1em) scale(1);
+  }
+  .specimen-glass.softened {
+    opacity: 0.55;
+    filter: blur(0.3em);
+  }
+  .specimen-glass svg {
+    width: min(28vh, 24vw);
+    height: min(34vh, 30vw);
+    filter: drop-shadow(0 0.6em 1.5em rgba(0,0,0,0.18));
+  }
+  .burst-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(4em);
+    opacity: 0;
+  }
+  @keyframes bloom {
+    0% { transform: scale(0); opacity: 0; }
+    60% { opacity: 0.7; }
+    100% { transform: scale(1); opacity: 0.55; }
+  }
+  @keyframes bloomFromTop {
+    0% { transform: translateY(-30%) scale(0.3); opacity: 0; }
+    100% { transform: translateY(0) scale(1); opacity: 0.55; }
+  }
+  @keyframes bloomFromBottom {
+    0% { transform: translateY(30%) scale(0.3); opacity: 0; }
+    100% { transform: translateY(0) scale(1); opacity: 0.55; }
+  }
+  @keyframes drip {
+    0% { transform: translateY(-40%) scale(0.4); opacity: 0; }
+    60% { transform: translateY(0) scale(1); opacity: 0.55; }
+    100% { transform: translateY(20%) scale(1.1); opacity: 0.35; }
+  }
+  .burst-spark {
+    position: absolute;
+    width: 0.6em;
+    height: 0.6em;
+    background: white;
+    border-radius: 50%;
+    opacity: 0;
+    box-shadow: 0 0 1em rgba(255,255,255,0.9);
+    animation: sparkle 2.4s ease-in-out infinite;
+  }
+  @keyframes sparkle {
+    0%, 100% { opacity: 0; transform: scale(0.4); }
+    50% { opacity: 0.9; transform: scale(1.2); }
+  }
+  .progress {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    z-index: 3;
+    padding: 1.5em 4em 0;
+    display: flex;
+    gap: 0.4em;
+  }
+  .progress .bar {
+    flex: 1;
+    height: 0.2em;
+    background: rgba(255,255,255,0.35);
+    border-radius: 0.1em;
+    overflow: hidden;
+  }
+  .progress .bar.done { background: rgba(255,255,255,0.85); }
+  .progress .bar.current {
+    background: linear-gradient(90deg, rgba(255,255,255,0.95) 50%, rgba(255,255,255,0.35) 50%);
+  }
+  .spec-num {
+    position: absolute;
+    top: 3em;
+    right: 4em;
+    z-index: 3;
+    background: rgba(255,255,255,0.85);
+    color: #4A2838;
+    font-family: 'DM Mono', 'SF Mono', 'Menlo', monospace;
+    font-size: 0.85em;
+    padding: 0.5em 1.2em;
+    border-radius: 999px;
+    letter-spacing: 0.15em;
+  }
+  .spec-back {
+    top: 3em;
+    left: 4em;
+    background: rgba(255,255,255,0.85);
+    border: none;
+  }
+  .spec-caption {
+    position: absolute;
+    bottom: 3em;
+    left: 4em;
+    max-width: 32em;
+    z-index: 3;
+    opacity: 0;
+    transform: translateY(1em);
+    transition: opacity 1.1s ease-out, transform 1.1s ease-out;
+  }
+  .cap-name {
+    font-size: 2.4em;
+    letter-spacing: 0.04em;
+    line-height: 1.05;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+  }
+  .cap-date {
+    margin-top: 0.4em;
+    font-family: 'DM Mono', 'SF Mono', 'Menlo', monospace;
+    font-size: 0.8em;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  .cap-quote {
+    margin-top: 1.2em;
+    font-size: 1.25em;
+    line-height: 1.65;
+    letter-spacing: -0.01em;
+    font-family: 'Gowun Dodum', 'Space Grotesk', sans-serif;
+  }
+  .cap-story {
+    margin-top: 0.8em;
+    font-size: 1em;
+    line-height: 1.65;
+    letter-spacing: -0.01em;
+    font-family: 'Gowun Dodum', 'Space Grotesk', sans-serif;
+    opacity: 0.85;
+    padding-left: 1em;
+    border-left: 2px solid currentColor;
+  }
+  .cap-details {
+    margin-top: 1.4em;
+    font-family: 'DM Mono', 'SF Mono', 'Menlo', monospace;
+    font-size: 0.78em;
+    letter-spacing: 0.06em;
+    line-height: 1.9;
+  }
+  .cap-details .row { display: flex; gap: 1em; }
+  .cap-details .row .label { width: 6em; text-transform: uppercase; }
+</style>
 </head>
 <body>
 
-<!-- 바탕화면 아이콘 -->
-<div class="desktop-icons">
-  <div class="desktop-icon">
-    <span>🖥️</span>
-    <span>내 컴퓨터</span>
-  </div>
-  <div class="desktop-icon">
-    <span>🗑️</span>
-    <span>휴지통</span>
-  </div>
-  <div class="desktop-icon">
-    <span>📁</span>
-    <span>내 문서</span>
+<!-- COVER -->
+<div class="screen active" id="screen-cover">
+  <div class="paper-grain"></div>
+  <span class="y2k-star" style="top:18%;left:14%;animation-delay:0s">✦</span>
+  <span class="y2k-star" style="top:24%;right:18%;animation-delay:1s">✦</span>
+  <span class="y2k-star" style="bottom:22%;left:18%;animation-delay:2s;font-size:1em">✦</span>
+  <span class="y2k-star" style="bottom:30%;right:14%;animation-delay:0.5s">✦</span>
+  <span class="y2k-dot" style="top:38%;left:8%;width:0.8em;height:0.8em;background:#E89B5C"></span>
+  <span class="y2k-dot" style="bottom:42%;right:10%;width:1.2em;height:1.2em;background:#F0B8C2"></span>
+  <span class="y2k-dot" style="top:62%;left:11%;width:0.6em;height:0.6em;background:#F5C97A"></span>
+  <div class="cover-inner">
+    <div class="cover-row">
+      <span>Field Notes</span>
+      <span>Spring 2026</span>
+    </div>
+    <div class="cover-book-wrap">
+      <div class="cover-book" onclick="goTo('intro')">
+        <div class="cover-title">The Drinks<br>She Had<br>That Spring</div>
+        <div class="cover-subtitle">나의 첫 봄을<br>음료로 적은 노트</div>
+        <div class="cover-dots">
+          <span style="background:#E8B5C8"></span>
+          <span style="background:#5A2A4D"></span>
+          <span style="background:#D9CFA6"></span>
+          <span style="background:#7FB3D5"></span>
+          <span style="background:#8B6F4E"></span>
+        </div>
+        <div class="cover-meta">15 specimens · 90 days</div>
+      </div>
+    </div>
+    <div class="cover-hint">노트를 펼치려면 표지를 누르세요</div>
   </div>
 </div>
 
-<!-- 작업표시줄 -->
-<div class="taskbar">
-  <button class="taskbar-start">🪟 시작</button>
-  <div class="taskbar-item">계정 관리</div>
-  <div class="taskbar-clock" id="taskbar-clock">00:00</div>
+<!-- INTRO -->
+<div class="screen" id="screen-intro">
+  <div class="paper-grain"></div>
+  <span class="y2k-star" style="top:12%;left:10%;animation-delay:0s">✦</span>
+  <span class="y2k-star" style="top:16%;right:14%;animation-delay:1.2s">✦</span>
+  <span class="y2k-star" style="bottom:18%;left:14%;animation-delay:2s">✦</span>
+  <span class="y2k-star" style="bottom:14%;right:10%;animation-delay:0.8s;font-size:1em">✦</span>
+  <span class="y2k-dot" style="top:30%;right:8%;width:1em;height:1em;background:#E89B5C"></span>
+  <span class="y2k-dot" style="bottom:34%;left:7%;width:0.8em;height:0.8em;background:#F5C97A"></span>
+  <button class="back-btn" onclick="goTo('cover')">← 표지</button>
+  <div class="intro-inner">
+    <div class="intro-text">
+      <p>이건 내 얘기다.</p>
+      <p>대학교 1학년 봄에 이상한 버릇이 생겼다.<br>인상 깊은 날마다 그날 마신 음료를 그려뒀다.<br>무슨 일이 있었는지는 안 적었다. 그냥 음료만.</p>
+      <p class="intro-quote">왜냐고 묻는다면, 기억하고 싶어서.</p>
+      <p>3월부터 5월까지, 90일 동안<br>열다섯 잔이 쌓였다.<br>이건 내 음료 노트다.</p>
+    </div>
+    <div class="intro-divider"></div>
+    <button class="intro-next" onclick="goTo('spread')">펼쳐보기 →</button>
+  </div>
 </div>
 
-<div id="app">
-
-  <!-- 진입 화면 -->
-  <div id="screen-intro" class="screen active">
-    <div class="window">
-      <div class="window-titlebar">
-        <span class="titlebar-icon">⚠️</span>
-        <span class="titlebar-title">계정 관리</span>
-        <div class="window-titlebar-buttons">
-          <button class="titlebar-btn">_</button>
-          <button class="titlebar-btn">□</button>
-          <button class="titlebar-btn">✕</button>
+<!-- SPREAD -->
+<div class="screen" id="screen-spread">
+  <div class="paper-grain"></div>
+  <span class="y2k-star" style="top:8%;left:12%;animation-delay:0s">✦</span>
+  <span class="y2k-star" style="top:11%;right:16%;animation-delay:1s">✦</span>
+  <span class="y2k-dot" style="bottom:8%;left:50%;width:0.7em;height:0.7em;background:#E89B5C"></span>
+  <button class="back-btn" onclick="goTo('intro')">← 인트로</button>
+  <div class="spread-inner">
+    <div class="spread-header">나의 음료 노트 · 2026년 봄</div>
+    <div class="spread-folds">
+      <div class="fold" onclick="openMonth('march')">
+        <div class="fold-num">III</div>
+        <div class="fold-name">MARCH</div>
+        <div class="fold-sub">아직 모르는 사람이 더 많았다.</div>
+        <div class="fold-strip">
+          <div class="swatch" style="background:#E8B5C8"></div>
+          <div class="swatch" style="background:#5A2A4D"></div>
+          <div class="swatch" style="background:linear-gradient(90deg,#F4A6B8,#A6D8B8,#A6C4E8,#F4D88A)"></div>
+          <div class="swatch" style="background:#D9CFA6"></div>
+          <div class="swatch" style="background:#EFE9D9"></div>
         </div>
+        <div class="fold-count">5 specimens</div>
+        <div class="fold-arrow">tap →</div>
       </div>
-      <hr class="window-divider">
-      <div class="window-content">
-        <div class="window-icon">⚠️</div>
-        <p>계정을 탈퇴하시겠습니까?</p>
-        <div class="buttons">
-          <button onclick="startFlow()">예</button>
-          <button onclick="exit()">아니오</button>
+      <div class="fold" onclick="openMonth('april')">
+        <div class="fold-num">IV</div>
+        <div class="fold-name">APRIL</div>
+        <div class="fold-sub">갑자기 색이 늘어났다.</div>
+        <div class="fold-strip">
+          <div class="swatch" style="background:#F4D04A"></div>
+          <div class="swatch" style="background:#7A1A24"></div>
+          <div class="swatch" style="background:#F8D5DC"></div>
+          <div class="swatch" style="background:#EFE9D9"></div>
+          <div class="swatch" style="background:#E89BB0"></div>
         </div>
+        <div class="fold-count">5 specimens</div>
+        <div class="fold-arrow">tap →</div>
+      </div>
+      <div class="fold" onclick="openMonth('may')">
+        <div class="fold-num">V</div>
+        <div class="fold-name">MAY</div>
+        <div class="fold-sub">다 한꺼번에 몰렸다.</div>
+        <div class="fold-strip">
+          <div class="swatch" style="background:#C99440"></div>
+          <div class="swatch" style="background:linear-gradient(to bottom,#1a1a1a 50%,#EFE9D9 50%)"></div>
+          <div class="swatch" style="background:#EFE9D9"></div>
+          <div class="swatch" style="background:#9EC8E8"></div>
+          <div class="swatch" style="background:#7A6850"></div>
+        </div>
+        <div class="fold-count">5 specimens</div>
+        <div class="fold-arrow">tap →</div>
       </div>
     </div>
   </div>
-
-  <!-- 반복 확인 화면 -->
-  <div id="screen-confirm" class="screen">
-    <div class="window" id="confirm-popup">
-      <div class="window-titlebar">
-        <span class="titlebar-icon">❓</span>
-        <span class="titlebar-title">확인 필요</span>
-        <div class="window-titlebar-buttons">
-          <button class="titlebar-btn">_</button>
-          <button class="titlebar-btn">□</button>
-          <button class="titlebar-btn">✕</button>
-        </div>
-      </div>
-      <hr class="window-divider">
-      <div class="window-content">
-        <div class="window-icon">❓</div>
-        <p id="confirm-text">정말 탈퇴하시겠습니까?</p>
-        <div class="buttons" id="buttons">
-          <button id="yes-btn" onclick="nextConfirm()">예</button>
-          <button id="no-btn" onclick="exit()">아니오</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 로딩 화면 -->
-  <div id="screen-loading" class="screen">
-    <div class="window">
-      <div class="window-titlebar">
-        <span class="titlebar-icon">⏳</span>
-        <span class="titlebar-title">계정 삭제 중...</span>
-        <div class="window-titlebar-buttons">
-          <button class="titlebar-btn">_</button>
-          <button class="titlebar-btn">□</button>
-          <button class="titlebar-btn">✕</button>
-        </div>
-      </div>
-      <hr class="window-divider">
-      <div class="window-content">
-        <div class="window-icon">⏳</div>
-        <p id="loading-text">계정을 삭제하는 중입니다...</p>
-        <div class="loading-bar-wrap">
-          <div class="loading-bar" id="loading-bar"></div>
-        </div>
-        <p id="loading-percent">0%</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- 완료 화면 -->
-  <div id="screen-done" class="screen">
-    <div class="window">
-      <div class="window-titlebar">
-        <span class="titlebar-icon">✅</span>
-        <span class="titlebar-title">완료</span>
-        <div class="window-titlebar-buttons">
-          <button class="titlebar-btn">_</button>
-          <button class="titlebar-btn">□</button>
-          <button class="titlebar-btn">✕</button>
-        </div>
-      </div>
-      <hr class="window-divider">
-      <div class="window-content">
-        <div class="window-icon">✅</div>
-        <p>탈퇴가 완료되었습니다</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- 엔딩 화면 -->
-  <div id="screen-ending" class="screen">
-    <div class="ending-text">
-      <span id="ending-time"></span>
-      <span id="ending-question">탈퇴하는 데 이만큼의 시간이 필요했나요?</span>
-      <button onclick="restart()">처음으로</button>
-    </div>
-  </div>
-
 </div>
-<script src="script.js"></script>
+
+<!-- MONTH -->
+<div class="screen" id="screen-month">
+  <div class="paper-grain"></div>
+  <span class="y2k-star" style="top:9%;right:11%;animation-delay:0.5s;font-size:1.2em">✦</span>
+  <span class="y2k-star" style="bottom:11%;left:13%;animation-delay:1.5s;font-size:1em">✦</span>
+  <span class="y2k-dot" style="top:15%;left:8%;width:0.9em;height:0.9em;background:#F5C97A"></span>
+  <button class="back-btn" onclick="goTo('spread')">← 달 선택</button>
+  <div class="month-inner">
+    <div class="month-title" id="monthTitle">MAY</div>
+    <div class="month-sub" id="monthSub">V · 2026</div>
+    <div class="month-line"></div>
+    <div class="weekdays">
+      <div>S</div><div>M</div><div>T</div><div>W</div><div>T</div><div>F</div><div>S</div>
+    </div>
+    <div class="month-grid" id="monthGrid"></div>
+  </div>
+</div>
+
+<!-- SPECIMEN -->
+<div class="screen" id="screen-specimen">
+  <div class="specimen-bg" id="specBg"></div>
+  <div class="specimen-burst" id="specBurst"></div>
+  <div class="specimen-glass" id="specGlass"></div>
+  <div class="progress" id="specProgress"></div>
+  <span class="spec-num" id="specNum">#04</span>
+  <button class="back-btn spec-back" onclick="goTo('month')">← 달력</button>
+  <div class="spec-caption" id="specCap">
+    <div class="cap-name" id="capName">BARLEY WATER</div>
+    <div class="cap-date" id="capDate">3월 28일</div>
+    <div class="cap-quote" id="capQuote"></div>
+    <div class="cap-story" id="capStory"></div>
+    <div class="cap-details" id="capDetails"></div>
+  </div>
+</div>
+
+<script>
+const drinks = [
+  {n:1, name:'STRAWBERRY MILK', date:'3월 4일', dateKey:[3,4], month:'march', color:'#E8B5C8', bgFrom:'#F5DCE5', bgTo:'#E8B5C8', textTone:'dark', quote:'빨대로 한참 휘저었다. 분홍이 어디로 갈지 못 정한 것 같았다.', story:'처음 본 동기들이랑 같이 밥을 먹었는데 이름이 잘 안 외워졌다.', details:{Color:'연한 분홍', Temp:'미지근', Fizz:'없음', Vessel:'긴 유리잔', Notes:'부드럽고 살짝 풋내'}, sparks:1, motion:'gentle'},
+  {n:2, name:'CASSIS SODA', date:'3월 13일', dateKey:[3,13], month:'march', color:'#5A2A4D', bgFrom:'#8B4070', bgTo:'#3A1A30', textTone:'light', quote:'보라가 생각보다 진했다. 그냥 마셨다.', story:'개강총회에서 처음 보는 사람들이랑 너무 빨리 친해진 척했다.', details:{Color:'진한 자주', Temp:'차가움', Fizz:'쨍함', Vessel:'와인잔', Notes:'달고 끝맛이 날카로움'}, sparks:4, motion:'pour'},
+  {n:3, name:'GUMMY BEAR SMOOTHIE', date:'3월 25일', dateKey:[3,25], month:'march', color:'#D8A6C4', bgFrom:'#F4D4A0', bgTo:'#A6C4E8', textTone:'dark', quote:'파란 곰이 떠오르고, 초록 곰이 떠올랐다.', story:'보드게임 동아리에서 게임은 잘 못 했지만 그냥 웃었다.', details:{Color:'흐린 다색', Temp:'차가움', Fizz:'없음', Vessel:'텀블러', Notes:'씹히는 알갱이, 시럽 같음'}, sparks:2, motion:'gentle', multicolor:true},
+  {n:4, name:'BARLEY WATER', date:'3월 28일', dateKey:[3,28], month:'march', color:'#D9CFA6', bgFrom:'#E8DCB0', bgTo:'#C4B888', textTone:'dark', quote:'잔 너머로 강을 봤다. 둘 다 조용했다.', story:'한강에 가서 아무것도 안 하고 강만 봤다. 그래도 괜찮았다.', details:{Color:'옅은 황갈', Temp:'미지근', Fizz:'없음', Vessel:'긴 유리잔', Notes:'구수하고 거의 무미'}, sparks:0, motion:'still'},
+  {n:5, name:'COCONUT MILK', date:'3월 31일', dateKey:[3,31], month:'march', color:'#EFE9D9', bgFrom:'#F5F0E0', bgTo:'#D8D0BC', textTone:'dark', quote:'위에 막이 생겼다. 안 깼다.', story:'밤새 흰색 페인트 작업을 했더니 손에서 며칠 동안 냄새가 났다.', details:{Color:'미색', Temp:'따뜻함', Fizz:'없음', Vessel:'머그', Notes:'표면에 막, 약한 화학 냄새'}, sparks:0, motion:'settle'},
+  {n:6, name:'YUZU SPARKLING', date:'4월 1일', dateKey:[4,1], month:'april', color:'#F4D04A', bgFrom:'#FBE890', bgTo:'#E8B520', textTone:'dark', quote:'거품이 작고 빨랐다. 두 손으로 잔을 잡았다.', story:'디자인 소모임에서 합격 메일이 왔다. 다섯 번쯤 다시 읽었다.', details:{Color:'밝은 노랑', Temp:'차가움', Fizz:'쨍함', Vessel:'긴 유리잔', Notes:'유자 껍질, 깔끔함'}, sparks:5, motion:'rise'},
+  {n:7, name:'CHERRY COLA', date:'4월 3일', dateKey:[4,3], month:'april', color:'#7A1A24', bgFrom:'#A02A2A', bgTo:'#3A0A14', textTone:'light', quote:'거품이 환호처럼 올라왔다.', story:'야구장에 가서 응원하다 보니 누가 이겼는지는 별로 안 중요했다.', details:{Color:'진한 진홍', Temp:'차가움', Fizz:'센 탄산', Vessel:'종이컵', Notes:'달고 거품이 솟음'}, sparks:6, motion:'rise'},
+  {n:8, name:'SAKURA LYCHEE WATER', date:'4월 8일', dateKey:[4,8], month:'april', color:'#F8D5DC', bgFrom:'#FBE5E8', bgTo:'#E89BB0', textTone:'dark', quote:'꽃잎이 바닥에 가라앉았다. 안 저었다.', story:'벚꽃 보러 가서 사진을 너무 많이 찍은 것 같다.', details:{Color:'연한 분홍', Temp:'미지근', Fizz:'약함', Vessel:'긴 유리잔', Notes:'꽃향, 리치 끝맛'}, sparks:2, motion:'settle'},
+  {n:9, name:'SPOT SODA', date:'4월 18일', dateKey:[4,18], month:'april', color:'#EFE9D9', bgFrom:'#F5F0E0', bgTo:'#D8D0BC', textTone:'dark', quote:'점들이 너무 가지런했다. 이걸 마셔도 되나 한참 봤다.', story:'데이미언 허스트 전시에서 어떤 작품 앞에선 한참 못 움직였다.', details:{Color:'투명에 색점', Temp:'차가움', Fizz:'약함', Vessel:'텀블러', Notes:'맛은 없고 시각적으로 시끄러움'}, sparks:1, spots:true, motion:'spots'},
+  {n:10, name:'RAINBOW SLUSH', date:'4월 25일', dateKey:[4,25], month:'april', color:'#E89BB0', bgFrom:'#F4A6B8', bgTo:'#A6D8B8', textTone:'dark', quote:'손이 차가워지고 분홍색이 됐다. 계속 들고 있었다.', story:'놀이공원에 가서 다리는 아픈데 자꾸 다음 거 타러 갔다.', details:{Color:'무지개 층', Temp:'얼음', Fizz:'없음', Vessel:'종이컵', Notes:'설탕 많고 혀에 색이 남음'}, sparks:3, motion:'gentle', multicolor:true},
+  {n:11, name:'HOT CITRON TEA', date:'5월 4일', dateKey:[5,4], month:'may', color:'#C99440', bgFrom:'#E8B560', bgTo:'#8B5E20', textTone:'dark', quote:'노랑이 다른 것들보다 오래된 색이었다. 손바닥부터 따뜻해졌다.', story:'오랜만에 만난 고등학교 친구랑 카페에 앉았는데 우리도 좀 컸나 싶었다.', details:{Color:'꿀색', Temp:'뜨거움', Fizz:'없음', Vessel:'머그', Notes:'유자 껍질, 잼 같은 점성'}, sparks:0, motion:'warm'},
+  {n:12, name:'ESPRESSO TONIC', date:'5월 11일', dateKey:[5,11], month:'may', color:'#1a1a1a', bgFrom:'#3a3a3a', bgTo:'#EFE9D9', textTone:'light', quote:'검정이 투명 위에 떠 있었다. 보기만 하고 안 마셨다.', story:'첫 전시 시작 직전이었다. 손이 좀 떨렸다.', details:{Color:'위는 검정 아래는 투명', Temp:'차가움', Fizz:'약함', Vessel:'텀블러', Notes:'위는 쓰고 아래는 건조함'}, sparks:1, split:true, motion:'split'},
+  {n:13, name:'TOMATO SPARKLING WATER', date:'5월 14일', dateKey:[5,14], month:'may', color:'#EFE9D9', bgFrom:'#F5F0E0', bgTo:'#D8D0BC', textTone:'dark', quote:'빨간 게 하나 떠올랐다. 별로 놀라지 않았다.', story:'학교 축제에 갔다. 시끄럽고 정신없는 게 좋았다.', details:{Color:'투명에 빨강', Temp:'차가움', Fizz:'쨍함', Vessel:'긴 유리잔', Notes:'짭짤하고 살짝 비림'}, sparks:4, tomato:true, motion:'tomato'},
+  {n:14, name:'SODA POP BLUE', date:'5월 16일', dateKey:[5,16], month:'may', color:'#9EC8E8', bgFrom:'#C4DCF0', bgTo:'#5A9EE0', textTone:'dark', quote:'파랑에 별이 너무 많았다. 그걸 세고 있었다.', story:'루시 콘서트에서 첫 곡이 시작될 때 진짜 울 뻔했다.', details:{Color:'하늘색', Temp:'차가움', Fizz:'쨍함', Vessel:'긴 유리잔', Notes:'사탕처럼 달콤함'}, sparks:10, motion:'rise'},
+  {n:15, name:'ICED EARL GREY', date:'5월 20일', dateKey:[5,20], month:'may', color:'#7A6850', bgFrom:'#9A8870', bgTo:'#5A4A38', textTone:'light', quote:'얼음은 한참 전에 다 녹았다. 시켜놓고 까먹고 있었다.', story:'비가 너무 많이 와서 창밖만 한참 봤다.', details:{Color:'흐린 갈색', Temp:'미지근', Fizz:'없음', Vessel:'텀블러', Notes:'베르가못, 묽음'}, sparks:1, motion:'drip'}
+];
+
+const monthInfo = {
+  march: {num:'III', year:'2026', firstDay:0, days:31, name:'MARCH'},
+  april: {num:'IV', year:'2026', firstDay:3, days:30, name:'APRIL'},
+  may:   {num:'V',  year:'2026', firstDay:5, days:31, name:'MAY'}
+};
+
+
+// === GLASSWARE ===
+// Returns an SVG of the drink in its glass. Used in the 3-phase reveal:
+// 1) glass appears, 2) color flows out into background, 3) caption rises.
+// Each drink has its own glass type derived from its Vessel attribute.
+function glassSVG(drink) {
+  const c = drink.color;
+  // Determine glass type from vessel field (Korean)
+  const v = drink.details.Vessel || '';
+  const isWine    = v.includes('와인');
+  const isMug     = v.includes('머그');
+  const isPaper   = v.includes('종이컵');
+  const isTumbler = v.includes('텀블러');
+  // default: tall glass
+
+  // Special-case decorations per drink id (gummies, dots, tomato, split, sparkles)
+  const decor = drinkDecor(drink);
+
+  if (isWine) {
+    // wine glass — for #02 Cassis Soda
+    return `<svg viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg">
+      <!-- bowl -->
+      <path d="M 55 30 Q 100 65 145 30 Q 145 120 100 145 Q 55 120 55 30 Z" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/>
+      <!-- liquid -->
+      <clipPath id="wineClip"><path d="M 58 35 Q 100 65 142 35 Q 142 118 100 140 Q 58 118 58 35 Z"/></clipPath>
+      <g clip-path="url(#wineClip)">
+        <rect x="55" y="60" width="90" height="90" fill="${c}" opacity="0.92"/>
+        <!-- meniscus shimmer -->
+        <ellipse cx="100" cy="62" rx="42" ry="4" fill="rgba(255,255,255,0.25)"/>
+      </g>
+      ${decor}
+      <!-- stem -->
+      <rect x="98" y="145" width="4" height="65" fill="rgba(255,255,255,0.4)"/>
+      <!-- base -->
+      <ellipse cx="100" cy="215" rx="38" ry="6" fill="rgba(255,255,255,0.3)"/>
+    </svg>`;
+  }
+
+  if (isMug) {
+    // mug — for hot drinks #05, #11
+    return `<svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg">
+      <!-- steam -->
+      <path d="M 80 25 Q 75 15 82 5 M 100 22 Q 95 12 102 2 M 120 25 Q 115 15 122 5" stroke="rgba(255,255,255,0.6)" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <!-- mug body -->
+      <path d="M 50 60 L 50 195 Q 50 215 70 215 L 130 215 Q 150 215 150 195 L 150 60 Z" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.55)" stroke-width="1.8"/>
+      <!-- handle -->
+      <path d="M 150 90 Q 180 90 180 130 Q 180 170 150 170" fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="1.8"/>
+      <!-- liquid -->
+      <clipPath id="mugClip"><path d="M 53 63 L 53 192 Q 53 212 70 212 L 130 212 Q 147 212 147 192 L 147 63 Z"/></clipPath>
+      <g clip-path="url(#mugClip)">
+        <rect x="50" y="75" width="100" height="150" fill="${c}" opacity="0.92"/>
+        <ellipse cx="100" cy="78" rx="48" ry="5" fill="rgba(255,255,255,0.3)"/>
+      </g>
+      ${decor}
+    </svg>`;
+  }
+
+  if (isPaper) {
+    // paper cup — for #07 Cherry Cola, #10 Rainbow Slush
+    return `<svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg">
+      <!-- cup body (trapezoid) -->
+      <path d="M 55 35 L 145 35 L 135 215 L 65 215 Z" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.55)" stroke-width="1.8"/>
+      <!-- rim -->
+      <ellipse cx="100" cy="35" rx="45" ry="6" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+      <!-- liquid -->
+      <clipPath id="paperClip"><path d="M 56 38 L 144 38 L 134 213 L 66 213 Z"/></clipPath>
+      <g clip-path="url(#paperClip)">
+        <rect x="50" y="55" width="100" height="170" fill="${c}" opacity="0.92"/>
+        <ellipse cx="100" cy="58" rx="44" ry="5" fill="rgba(255,255,255,0.3)"/>
+      </g>
+      ${decor}
+      <!-- straw -->
+      <rect x="118" y="10" width="6" height="50" fill="rgba(255,255,255,0.7)" transform="rotate(8 121 35)"/>
+    </svg>`;
+  }
+
+  if (isTumbler) {
+    // tumbler — short and wide; for #03, #09, #12, #15
+    return `<svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg">
+      <!-- glass -->
+      <path d="M 50 50 L 50 210 Q 50 220 60 220 L 140 220 Q 150 220 150 210 L 150 50 Z" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.55)" stroke-width="1.8"/>
+      <!-- rim ellipse -->
+      <ellipse cx="100" cy="50" rx="50" ry="6" fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="1.8"/>
+      <!-- liquid -->
+      <clipPath id="tumblerClip"><path d="M 53 53 L 53 207 Q 53 217 62 217 L 138 217 Q 147 217 147 207 L 147 53 Z"/></clipPath>
+      <g clip-path="url(#tumblerClip)">
+        ${drink.split
+          ? `<rect x="50" y="55" width="100" height="80" fill="#1a1a1a" opacity="0.95"/>
+             <rect x="50" y="135" width="100" height="90" fill="#F5F0E0" opacity="0.9"/>`
+          : `<rect x="50" y="60" width="100" height="160" fill="${c}" opacity="0.92"/>
+             <ellipse cx="100" cy="62" rx="48" ry="5" fill="rgba(255,255,255,0.3)"/>`}
+      </g>
+      ${decor}
+    </svg>`;
+  }
+
+  // default: tall glass — #01, #04, #06, #08, #13, #14
+  return `<svg viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg">
+    <!-- glass -->
+    <path d="M 65 30 L 60 230 Q 60 240 70 240 L 130 240 Q 140 240 140 230 L 135 30 Z" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.55)" stroke-width="1.8"/>
+    <!-- rim -->
+    <ellipse cx="100" cy="30" rx="35" ry="5" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="1.8"/>
+    <!-- liquid -->
+    <clipPath id="tallClip"><path d="M 67 33 L 62 227 Q 62 237 71 237 L 129 237 Q 138 237 138 227 L 133 33 Z"/></clipPath>
+    <g clip-path="url(#tallClip)">
+      <rect x="60" y="50" width="80" height="200" fill="${c}" opacity="0.92"/>
+      <ellipse cx="100" cy="52" rx="33" ry="4" fill="rgba(255,255,255,0.3)"/>
+    </g>
+    ${decor}
+    <!-- straw -->
+    <rect x="115" y="5" width="5" height="50" fill="rgba(255,255,255,0.7)" transform="rotate(8 117 30)"/>
+  </svg>`;
+}
+
+// Decorations inside the glass (fruits, bubbles, gummies, ice, etc.)
+function drinkDecor(drink) {
+  switch(drink.n) {
+    case 3: // gummy bears - colored blobs floating
+      return `<g clip-path="url(#tumblerClip)">
+        <circle cx="80" cy="100" r="6" fill="#F4A6B8"/>
+        <circle cx="115" cy="120" r="6" fill="#A6D8B8"/>
+        <circle cx="90" cy="150" r="6" fill="#F4D88A"/>
+        <circle cx="120" cy="170" r="6" fill="#A6C4E8"/>
+        <circle cx="100" cy="190" r="6" fill="#E89BB0"/>
+      </g>`;
+    case 6: case 7: case 14: // bubbles for sparkling
+      return `<g><circle cx="80" cy="80" r="3" fill="rgba(255,255,255,0.7)"/><circle cx="120" cy="100" r="2" fill="rgba(255,255,255,0.7)"/><circle cx="90" cy="120" r="2.5" fill="rgba(255,255,255,0.7)"/><circle cx="115" cy="140" r="2" fill="rgba(255,255,255,0.6)"/><circle cx="85" cy="160" r="3" fill="rgba(255,255,255,0.7)"/></g>`;
+    case 8: // petals at bottom
+      return `<g clip-path="url(#tallClip)">
+        <ellipse cx="85" cy="220" rx="5" ry="2" fill="#F4A6B8"/>
+        <ellipse cx="105" cy="215" rx="5" ry="2" fill="#F4A6B8"/>
+        <ellipse cx="120" cy="220" rx="5" ry="2" fill="#F4A6B8"/>
+        <ellipse cx="95" cy="225" rx="5" ry="2" fill="#F4A6B8"/>
+      </g>`;
+    case 9: // spot soda - dots
+      return `<g clip-path="url(#tumblerClip)">
+        <circle cx="80" cy="90" r="5" fill="#D85A30"/>
+        <circle cx="115" cy="105" r="5" fill="#378ADD"/>
+        <circle cx="90" cy="130" r="5" fill="#F4D04A"/>
+        <circle cx="120" cy="155" r="5" fill="#1D9E75"/>
+        <circle cx="85" cy="180" r="5" fill="#E24B4A"/>
+        <circle cx="115" cy="200" r="5" fill="#9B45D0"/>
+      </g>`;
+    case 10: // rainbow slush layers
+      return `<g clip-path="url(#paperClip)">
+        <rect x="50" y="55" width="100" height="35" fill="#F4A6B8" opacity="0.85"/>
+        <rect x="50" y="90" width="100" height="35" fill="#F4D88A" opacity="0.85"/>
+        <rect x="50" y="125" width="100" height="35" fill="#A6D8B8" opacity="0.85"/>
+        <rect x="50" y="160" width="100" height="35" fill="#A6C4E8" opacity="0.85"/>
+        <rect x="50" y="195" width="100" height="30" fill="#E89BB0" opacity="0.85"/>
+      </g>`;
+    case 13: // tomato
+      return `<g clip-path="url(#tallClip)">
+        <circle cx="100" cy="180" r="14" fill="#D04545"/>
+        <path d="M 100 167 L 95 160 L 105 160 Z" fill="#1D9E75"/>
+        <!-- small bubbles -->
+        <circle cx="85" cy="100" r="2" fill="rgba(255,255,255,0.7)"/>
+        <circle cx="115" cy="130" r="2" fill="rgba(255,255,255,0.7)"/>
+        <circle cx="90" cy="150" r="2.5" fill="rgba(255,255,255,0.7)"/>
+      </g>`;
+    case 15: // ice cubes melting (tumbler)
+      return `<g clip-path="url(#tumblerClip)">
+        <rect x="75" y="80" width="16" height="14" rx="2" fill="rgba(255,255,255,0.5)" transform="rotate(-8 83 87)"/>
+        <rect x="105" y="95" width="14" height="13" rx="2" fill="rgba(255,255,255,0.4)" transform="rotate(12 112 101)"/>
+        <rect x="90" y="115" width="12" height="11" rx="2" fill="rgba(255,255,255,0.3)" transform="rotate(-5 96 120)"/>
+      </g>`;
+    default:
+      return '';
+  }
+}
+
+let currentSpecimen = null;
+
+function goTo(screen) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-' + screen).classList.add('active');
+}
+
+function openMonth(m) {
+  const info = monthInfo[m];
+  document.getElementById('monthTitle').textContent = info.name;
+  document.getElementById('monthSub').textContent = info.num + ' · ' + info.year;
+  const grid = document.getElementById('monthGrid');
+  grid.innerHTML = '';
+  const monthDrinks = drinks.filter(d => d.month === m);
+  for (let i = 0; i < info.firstDay; i++) {
+    const c = document.createElement('div');
+    c.className = 'day-cell';
+    grid.appendChild(c);
+  }
+  for (let d = 1; d <= info.days; d++) {
+    const stamp = monthDrinks.find(x => x.dateKey[1] === d);
+    const c = document.createElement('div');
+    c.className = 'day-cell' + (stamp ? ' stamped' : '');
+    if (stamp) {
+      // PNG stamp with blend mode
+      const img = document.createElement('img');
+      img.className = 'stamp-img';
+      img.src = `stamps/${stamp.n}.png`;
+      img.alt = '';
+      c.appendChild(img);
+
+      // number overlay (shows the day of the month)
+      const num = document.createElement('span');
+      num.className = 'stamp-num';
+      num.textContent = d;
+      num.style.color = (stamp.textTone === 'light') ? 'rgba(255,255,255,0.95)' : 'rgba(74,40,56,0.85)';
+      c.appendChild(num);
+
+      c.onclick = () => openSpecimen(stamp.n);
+    } else {
+      c.textContent = d;
+    }
+    grid.appendChild(c);
+  }
+  goTo('month');
+}
+
+function openSpecimen(n) {
+  const drink = drinks.find(d => d.n === n);
+  if (!drink) return;
+  currentSpecimen = n;
+
+  // PHASE 1: dim background first, glass appears
+  const bg = document.getElementById('specBg');
+  bg.style.transition = 'background 0.4s ease';
+  bg.style.background = '#2A1820'; // dark moody start
+
+  // Render glass
+  const glassEl = document.getElementById('specGlass');
+  glassEl.innerHTML = glassSVG(drink);
+  glassEl.classList.remove('show', 'softened');
+  // force reflow then trigger fade-in
+  glassEl.offsetHeight;
+  setTimeout(() => glassEl.classList.add('show'), 100);
+
+  // PHASE 2 (after 1.4s): the drink color "flows out" → background fades to drink colors + burst starts
+  setTimeout(() => {
+    bg.style.transition = 'background 1.6s ease';
+    bg.style.background = `linear-gradient(160deg, ${drink.bgFrom} 0%, ${drink.bgTo} 100%)`;
+  }, 1400);
+
+  // PHASE 3 (after 2.6s): glass softens / sinks into background
+  setTimeout(() => glassEl.classList.add('softened'), 2600);
+
+  const monthDrinks = drinks.filter(d => d.month === drink.month);
+  const progress = document.getElementById('specProgress');
+  progress.innerHTML = '';
+  monthDrinks.forEach(md => {
+    const bar = document.createElement('div');
+    bar.className = 'bar' + (md.n < n ? ' done' : md.n === n ? ' current' : '');
+    progress.appendChild(bar);
+  });
+
+  document.getElementById('specNum').textContent = '#' + String(drink.n).padStart(2,'0');
+
+  const cap = document.getElementById('specCap');
+  const light = drink.textTone === 'light';
+  const txt = light ? 'rgba(255,255,255,0.98)' : '#4A2838';
+  const sub = light ? 'rgba(255,255,255,0.8)' : '#8B5A6E';
+  const lbl = light ? 'rgba(255,255,255,0.55)' : '#C49AAA';
+  const shadow = light ? '0 0.1em 0.5em rgba(0,0,0,0.5)' : '0 0.1em 0.5em rgba(255,255,255,0.4)';
+
+  const capName = document.getElementById('capName');
+  const capDate = document.getElementById('capDate');
+  const capQuote = document.getElementById('capQuote');
+  const capStory = document.getElementById('capStory');
+  const capDetails = document.getElementById('capDetails');
+
+  capName.textContent = drink.name;
+  capName.style.color = txt; capName.style.textShadow = shadow;
+  capDate.textContent = drink.date;
+  capDate.style.color = sub; capDate.style.textShadow = shadow;
+  capQuote.textContent = drink.quote;
+  capQuote.style.color = txt; capQuote.style.textShadow = shadow;
+  capStory.textContent = drink.story;
+  capStory.style.color = txt; capStory.style.textShadow = shadow; capStory.style.borderLeftColor = sub;
+  capDetails.style.color = sub; capDetails.style.textShadow = shadow;
+  capDetails.innerHTML = '';
+  Object.entries(drink.details).forEach(([k,v]) => {
+    const row = document.createElement('div');
+    row.className = 'row';
+    row.innerHTML = `<span class="label" style="color:${lbl}">${k}</span><span>${v}</span>`;
+    capDetails.appendChild(row);
+  });
+
+  const burst = document.getElementById('specBurst');
+  burst.innerHTML = '';
+
+  // BURST starts at phase 2 (1.4s) — color flows OUT of the glass
+  setTimeout(() => {
+    const motion = drink.motion;
+    const main = document.createElement('div');
+    main.className = 'burst-blob';
+    main.style.background = drink.color;
+    main.style.width = '70%';
+    main.style.aspectRatio = '1';
+    main.style.left = '15%';
+    main.style.top = '15%';
+
+    if (motion === 'pour') main.style.animation = 'bloomFromTop 1.4s ease-out forwards';
+    else if (motion === 'rise') main.style.animation = 'bloomFromBottom 1.6s ease-out forwards';
+    else if (motion === 'drip') main.style.animation = 'drip 2.4s ease-in-out forwards';
+    else if (motion === 'still') main.style.animation = 'bloom 2.4s ease-out forwards';
+    else if (motion === 'settle') {
+      main.style.animation = 'bloom 1.8s ease-out forwards';
+      main.style.filter = 'blur(5em)';
+    } else if (motion === 'warm') main.style.animation = 'bloom 2s ease-out forwards';
+    else if (motion === 'split') {
+      main.style.width = '50%';
+      main.style.height = '25%';
+      main.style.top = '28%';
+      main.style.left = '25%';
+      main.style.background = '#1a1a1a';
+      main.style.animation = 'bloom 1.4s ease-out forwards';
+      const clear = document.createElement('div');
+      clear.className = 'burst-blob';
+      clear.style.background = '#EFE9D9';
+      clear.style.width = '50%';
+      clear.style.height = '25%';
+      clear.style.top = '53%';
+      clear.style.left = '25%';
+      clear.style.animation = 'bloom 1.4s 0.3s ease-out forwards';
+      burst.appendChild(clear);
+    } else if (motion === 'tomato') {
+      main.style.background = '#EFE9D9';
+      main.style.animation = 'bloom 1.6s ease-out forwards';
+      const red = document.createElement('div');
+      red.className = 'burst-blob';
+      red.style.background = '#D04545';
+      red.style.width = '10%';
+      red.style.aspectRatio = '1';
+      red.style.left = '47%';
+      red.style.top = '60%';
+      red.style.filter = 'blur(1.5em)';
+      red.style.animation = 'bloomFromBottom 2s 0.8s ease-out forwards';
+      burst.appendChild(red);
+    } else if (motion === 'spots') {
+      main.style.background = '#EFE9D9';
+      main.style.animation = 'bloom 1.4s ease-out forwards';
+      ['#D85A30','#378ADD','#F4D04A','#1D9E75','#E24B4A','#9B45D0'].forEach((cl, i) => {
+        const dot = document.createElement('div');
+        dot.className = 'burst-blob';
+        dot.style.background = cl;
+        dot.style.width = '6%';
+        dot.style.aspectRatio = '1';
+        const angle = i * 60;
+        dot.style.left = (47 + 18*Math.cos(angle*Math.PI/180)) + '%';
+        dot.style.top = (38 + 18*Math.sin(angle*Math.PI/180)) + '%';
+        dot.style.filter = 'blur(1.2em)';
+        dot.style.animation = 'bloom 0.8s ' + (0.5 + i*0.15) + 's ease-out forwards';
+        burst.appendChild(dot);
+      });
+    } else main.style.animation = 'bloom 1.6s ease-out forwards';
+    burst.appendChild(main);
+
+    if (!['split', 'tomato', 'spots'].includes(motion)) {
+      for (let i = 0; i < 3; i++) {
+        const b = document.createElement('div');
+        b.className = 'burst-blob';
+        b.style.background = drink.multicolor ? ['#F4A6B8','#A6D8B8','#A6C4E8'][i] : drink.color;
+        const sz = 18 + Math.random()*15;
+        b.style.width = sz + '%';
+        b.style.aspectRatio = '1';
+        b.style.left = (20 + Math.random()*60) + '%';
+        b.style.top = (15 + Math.random()*40) + '%';
+        b.style.animation = 'bloom 1.6s ' + (0.3 + i*0.2) + 's ease-out forwards';
+        burst.appendChild(b);
+      }
+    }
+
+    for (let i = 0; i < drink.sparks; i++) {
+      const s = document.createElement('div');
+      s.className = 'burst-spark';
+      s.style.left = (15 + Math.random()*70) + '%';
+      s.style.top = (15 + Math.random()*55) + '%';
+      s.style.animationDelay = (1 + Math.random()*1.5) + 's';
+      burst.appendChild(s);
+    }
+  }, 1400);
+
+  // PHASE 4: caption rises last
+  cap.style.opacity = '0';
+  cap.style.transform = 'translateY(1em)';
+  setTimeout(() => {
+    cap.style.opacity = '1';
+    cap.style.transform = 'translateY(0)';
+  }, 3500);
+
+  goTo('specimen');
+}
+
+document.addEventListener('keydown', (e) => {
+  const activeSpec = document.getElementById('screen-specimen').classList.contains('active');
+  if (activeSpec && currentSpecimen) {
+    const cur = drinks.find(d => d.n === currentSpecimen);
+    const sameMonth = drinks.filter(d => d.month === cur.month);
+    const idx = sameMonth.findIndex(d => d.n === currentSpecimen);
+    if (e.key === 'ArrowRight' && idx < sameMonth.length - 1) openSpecimen(sameMonth[idx + 1].n);
+    else if (e.key === 'ArrowLeft' && idx > 0) openSpecimen(sameMonth[idx - 1].n);
+    else if (e.key === 'Escape') goTo('month');
+  } else if (e.key === 'Escape') {
+    const screens = ['cover', 'spread', 'month', 'specimen'];
+    const active = screens.find(s => document.getElementById('screen-' + s).classList.contains('active'));
+    if (active === 'spread') goTo('cover');
+    else if (active === 'month') goTo('spread');
+  }
+  if (e.key === 'f' || e.key === 'F') {
+    if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+    else document.exitFullscreen();
+  }
+});
+</script>
+
 </body>
 </html>
