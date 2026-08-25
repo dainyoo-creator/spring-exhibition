@@ -3,41 +3,42 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MyWiki</title>
+<title>Ever Dream This Man?</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div id="corruption-overlay"></div>
 
   <header class="site-header">
     <div class="header-inner">
       <a class="logo" href="#" data-page="home">
-        <span class="logo-mark">W</span>
-        <span class="logo-text">MyWiki</span>
-      </a>
+  <span class="logo-mark-crop"><img src="logo.png" alt="DreamWiKi" class="logo-mark"></span>
+  <span class="logo-text">DreamWiKi</span>
+</a>
 
       <form class="search-form" role="search" onsubmit="return false;">
-        <input type="text" id="searchInput" placeholder="문서 검색..." autocomplete="off">
+        <input type="text" id="searchInput" placeholder="여기에서 검색..." autocomplete="off">
         <div id="searchResults" class="search-results"></div>
       </form>
 
       <nav class="header-nav">
         <a href="#" data-page="home">대문</a>
         <a href="#" data-page="all-pages">모든 문서</a>
-        <a href="#" data-page="recent">최근 변경</a>
+        <a href="#" data-page="recent">최근 수정</a>
       </nav>
     </div>
   </header>
 
   <div class="layout">
 
-    <!-- 좌측 사이드바: 카테고리 / 문서 목록 -->
+    <!-- 좌측 사이드바 -->
     <aside class="sidebar">
       <div class="sidebar-section">
         <h3>둘러보기</h3>
         <ul>
           <li><a href="#" data-page="home">대문</a></li>
           <li><a href="#" data-page="all-pages">모든 문서</a></li>
-          <li><a href="#" data-page="recent">최근 변경</a></li>
+          <li><a href="#" data-page="recent">최근 수정</a></li>
           <li><a href="#" data-page="random">임의 문서</a></li>
         </ul>
       </div>
@@ -45,9 +46,19 @@
       <div class="sidebar-section">
         <h3>분류</h3>
         <ul id="categoryList">
-          <li><a href="#" data-page="category-a">분류 A</a></li>
-          <li><a href="#" data-page="category-b">분류 B</a></li>
-          <li><a href="#" data-page="category-c">분류 C</a></li>
+          <li><a href="#" data-page="category-observation">관찰</a></li>
+          <li><a href="#" data-page="category-approach">접근</a></li>
+          <li><a href="#" data-page="category-guide">안내</a></li>
+          <li><a href="#" data-page="category-intervention">개입</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>핵심 문서</h3>
+        <ul>
+          <li><a href="#" data-page="disman">디스맨</a></li>
+          <li><a href="#" data-page="facts">확인된 사실</a></li>
+          <li><a href="#" data-page="archive">목격담 아카이브</a></li>
         </ul>
       </div>
     </aside>
@@ -55,117 +66,320 @@
     <!-- 본문 -->
     <main class="content" id="content">
 
-      <!-- 대문 -->
+      <!-- ================= 대문 ================= -->
       <article class="page active" id="page-home" data-title="대문">
-        <h1>Ever dream this man?</h1>
-        <p class="page-meta">디스맨의 위키에 오신 것을 환영합니다.</p>
+        <h1>Ever Dream This Man?</h1>
+        <p class="page-meta">비공식 · 검증되지 않은 정보를 다루는 공동 편집 아카이브</p>
 
-        <section>
-          <h2>소개</h2>
-          <p>
-            이곳은 위키 형식의 문서 모음입니다. 왼쪽 사이드바에서 분류를 통해
-            문서를 탐색하거나, 상단 검색창에서 원하는 문서를 검색할 수 있습니다.
-            각 문서는 <a href="#" data-page="page-sample">예시 문서</a>처럼
-            제목, 목차, 본문, 관련 문서로 구성됩니다.
-          </p>
-        </section>
+        <div class="notice-box">
+          ⚠ 이 위키를 처음 보신다면, 먼저 <strong>「디스맨 생존 안내서」</strong>를 확인하십시오.
+          본 위키의 내용을 이해하는 데 필요한 최소한의 배경 지식이 담겨 있습니다.
+        </div>
+
+        <p class="stat-line">현재 문서 수: 1,847 · 최근 24시간 편집: 12건 · 활성 기여자: 알 수 없음</p>
 
         <section>
           <h2>둘러보기</h2>
+          <ol>
+            <li><a href="#" data-page="disman">디스맨이란?</a></li>
+            <li><a href="#" data-page="facts">확인된 사실</a></li>
+            <li>목격담 아카이브
+              <ul>
+                <li><a href="#" data-page="category-observation">관찰 사례</a></li>
+                <li><a href="#" data-page="category-approach">접근 사례</a></li>
+                <li><a href="#" data-page="category-guide">안내 사례</a></li>
+                <li><a href="#" data-page="category-intervention">개입 사례</a></li>
+              </ul>
+            </li>
+            <li><a href="#" data-page="recent">최근 변경</a></li>
+          </ol>
+        </section>
+
+        <section>
+          <p class="warning-text">
+            이 위키는 누구나 편집할 수 있습니다.<br>
+            단, 편집 내역은 검증되지 않을 수 있으며, 편집자의 신원은 확인되지 않습니다.<br><br>
+            <span class="distort-target" data-original="문서 내용이 이전에 확인한 것과 다르다면, 그것이 당신의 착각인지 실제 편집인지 스스로 판단하시기 바랍니다." data-distorted="문서 내용이 이전에 확인한 것과 다르다면, 그것은 당신의 착각이 아닙니다.">문서 내용이 이전에 확인한 것과 다르다면, 그것이 당신의 착각인지 실제 편집인지
+            스스로 판단하시기 바랍니다.</span>
+          </p>
+        </section>
+      </article>
+
+      <!-- ================= 디스맨 문서 ================= -->
+      <article class="page" id="page-disman" data-title="디스맨">
+        <h1>디스맨 <span class="page-title-en">This Man</span></h1>
+
+        <div class="info-text">
           <ul>
-            <li><a href="#" data-page="all-pages">모든 문서 목록 보기</a></li>
-            <li><a href="#" data-page="category-a">분류 A 문서 보기</a></li>
+            <li>분류: 미확인 존재 / 반복 목격 현상</li>
+            <li>최초 보고: 2006년 1월, 뉴욕 (미확인)</li>
+            <li>출현 매체: 꿈</li>
+            <li><span class="distort-target" data-original="목격자 수: 2,000명 ~ 8,000명으로 추정 " data-distorted="목격자 수: 지금 이 문서를 읽고 있는 당신을 포함해 추정 불가">목격자 수: 2,000명 ~ 8,000명으로 추정 </span><sup class="cite-needed">[출처 필요]</sup></li>
+            <li>상태: 현재도 목격 보고 지속 중</li> 
+          </ul>
+        </div>
+
+        <p class="dispute-notice">이 문서는 지난 6시간 동안 3회 편집되었습니다. 편집 분쟁이 있는 문서입니다. → <a href="#" data-page="recent">편집 기록 보기</a></p>
+
+        <section>
+          <h2>개요</h2>
+          <p>디스맨(This Man)은 2006년 이후 세계 각지에서 서로 모르는 사람들이 동일한 얼굴의 남성을 꿈에서 목격했다고 보고하며 알려지기 시작한 현상이다. 목격자들은 사전에 서로 접촉한 적이 없으며, 대부분 온라인 커뮤니티를 통해 처음으로 자신의 꿈이 타인의 것과 일치한다는 사실을 알게 되었다.</p>
+          <p>디스맨의 정체, 출현 원리, 목적은 현재까지 밝혀지지 않았다. 이 문서에 기재된 정보는 목격자 증언에 의존하며, 증언 간에는 상당한 불일치가 존재한다.</p>
+        </section>
+
+        <section>
+          <h2>외형적 특징</h2>
+          <ul>
+            <li>키가 크고 마른 체형으로 묘사되는 경우가 많음</li>
+            <li><span class="distort-target" data-original="검은 머리, 짙은 눈썹" data-distorted="검은 머리, 짙은 눈썹 — 최근 목격담에서는 눈동자가 없다고도 함">검은 머리, 짙은 눈썹</span></li>
+            <li><span class="distort-target" data-original="표정 변화가 거의 없음 — &quot;무표정&quot; 또는 &quot;미소&quot;만 보고됨" data-distorted="표정 변화가 거의 없음 — 단, 당신을 볼 때만 예외적으로 웃는다">표정 변화가 거의 없음 — "무표정" 또는 "미소"만 보고됨</span></li>
+            <li>일부 증언에서는 안경을 착용</li>
+            <li>신체적 특징이 증언마다 미묘하게 다름 (눈썹 숱, 머리 길이 등) — <em>동일 인물인지에 대한 논쟁이 진행 중</em></li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>행동 분류</h2>
+          <table class="wiki-table">
+            <tr><th>유형</th><th>설명</th><th>사례 수</th></tr>
+            <tr><td><a href="#" data-page="category-observation">관찰</a></td><td>말없이 바라보거나 움직이지 않음</td><td>다수</td></tr>
+            <tr><td><a href="#" data-page="category-approach">접근</a></td><td>다가오거나 뒤따라옴</td><td>다수</td></tr>
+            <tr><td><a href="#" data-page="category-guide">안내</a></td><td>출구나 특정 장소를 알려줌</td><td>소수</td></tr>
+            <tr><td><a href="#" data-page="category-intervention">개입</a></td><td>꿈의 상황을 직접 바꾸거나 끝냄</td><td>소수</td></tr>
+          </table>
+        </section>
+
+        <figure class="media-block">
+  <img
+    src="디스맨문서1.png"
+    data-images="디스맨문서1.png,디스맨문서2.png"
+    data-index="0"
+    class="clickable-photo"
+    alt="디스맨으로 추정되는 인물 사진">
+  <figcaption>
+    제보자마다 다른 사진을 이 인물이라고 주장합니다 —
+    <span class="click-hint">사진을 클릭해 다른 제보를 확인하십시오</span>
+  </figcaption>
+</figure>
+
+        <p class="related-docs">관련 문서: <a href="#" data-page="archive">목격담 아카이브</a></p>
+      </article>
+
+      <!-- ================= 확인된 사실 ================= -->
+      <article class="page" id="page-facts" data-title="확인된 사실">
+        <h1>확인된 사실</h1>
+        <div class="notice-box">
+          이 문서는 "확인된" 사실만을 다루는 것을 목표로 하지만, 아래 항목 중 다수는
+          재검토가 필요한 상태입니다. 최종 검토일이 없는 항목은 주의해서 읽으십시오.
+        </div>
+        <ul>
+          <li>2006년 최초 보고 이후, 서로 다른 국가·문화권의 목격자들이 동일한 얼굴을 반복 증언함</li>
+          <li class="distort-target" data-original="출현에 특정한 규칙성은 확인되지 않음" data-distorted="출현에는 특정한 규칙성이 존재한다는 것이, 이제는 확인되었다">출현에 특정한 규칙성은 확인되지 않음</li>
+          <li class="distort-target" data-original="디스맨은 목격자마다 다르게 행동함 — 우호적 사례와 적대적 사례가 모두 존재" data-distorted="디스맨은 모든 목격자에게 동일하게 행동한다 — 그는 항상 지켜보고 있었다">디스맨은 목격자마다 다르게 행동함 — 우호적 사례와 적대적 사례가 모두 존재</li>
+          <li><span class="distort-target" data-original="목격자 대부분은 디스맨을 실제로 만난 적이 없다고 진술함에도, 얼굴에 대한 묘사가 상당 부분 일치함" data-distorted="목격자 대부분은 디스맨을 실제로 만난 적이 없다고 진술하지만, 사실 이들은 모두 그를 만난 적이 있다">목격자 대부분은 디스맨을 실제로 만난 적이 없다고 진술함에도, 얼굴에 대한 묘사가 상당 부분 일치함</span></li>
+          <li><span class="distort-target" data-original="일부 목격자는 이사, 이직, 특정 장소 방문 이후 목격 빈도가 증가했다고 보고함" data-distorted="목격자는 이사, 이직, 특정 장소 방문과 무관하게, 이 문서를 읽은 이후 목격 빈도가 증가한다고 보고함">일부 목격자는 이사, 이직, 특정 장소 방문 이후 목격 빈도가 증가했다고 보고함</span></li>
+          <li><s>디스맨은 실존 인물의 얼굴을 합성한 것으로 밝혀졌다</s> <em>(2019년경 유포된 낭설로, 근거 문서 삭제됨 — 최근 이 문장이 되살아난 정황이 있음)</em></li>
+        </ul>
+      </article>
+
+      <!-- ================= 목격담 아카이브 색인 ================= -->
+      <article class="page" id="page-archive" data-title="목격담 아카이브">
+        <h1>목격담 아카이브</h1>
+        <div class="notice-box">
+          아래 목격담은 제보된 원문을 최대한 그대로 옮긴 것입니다. <span class="distort-target" data-original="그러나 이 아카이브의 일부 문서는 편집 이력상 원문과 차이가 있는 것으로 확인되었습니다." data-distorted="이 아카이브의 모든 문서는 이제 원문과 동일합니다. 대조할 원문은 더 이상 존재하지 않습니다.">그러나 이 아카이브의 일부 문서는 편집 이력상 원문과 차이가 있는 것으로 확인되었습니다.</span>
+        </div>
+
+        <section>
+          <h2><a href="#" data-page="category-observation">분류: 관찰</a></h2>
+          <ul class="page-list">
+            <li><a href="#" data-page="t014">#014 — 거울 속의 남자</a></li>
+            <li><a href="#" data-page="t031">#031 — 하늘을 나는 남자</a></li>
+          </ul>
+        </section>
+
+        <section>
+          <h2><a href="#" data-page="category-approach">분류: 접근</a></h2>
+          <ul class="page-list">
+            <li><a href="#" data-page="t052">#052 — 텅 빈 쇼핑몰</a></li>
+            <li><a href="#" data-page="t077">#077 — 세 번의 메시지</a></li>
+          </ul>
+        </section>
+
+        <section>
+          <h2><a href="#" data-page="category-guide">분류: 안내</a></h2>
+          <ul class="page-list">
+            <li><a href="#" data-page="t009">#009 — 산타 복장의 남자</a></li>
+            <li><a href="#" data-page="t103">#103 — 핵 재앙 경고</a></li>
+          </ul>
+        </section>
+
+        <section>
+          <h2><a href="#" data-page="category-intervention">분류: 개입</a></h2>
+          <ul class="page-list">
+            <li><a href="#" data-page="t088">#088 — 방 안의 텔레비전</a></li>
+            <li><a href="#" data-page="t005">#005 — 사진 속 아버지</a></li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>분류: 미분류 / 로맨틱형 <span class="editor-tag">(편집자 임의 분류)</span></h2>
+          <ul class="page-list">
+            <li><a href="#" data-page="t019">#019 — 사랑에 빠진 목격자</a></li>
           </ul>
         </section>
       </article>
 
-      <!-- 예시 개별 문서 페이지 -->
-      <article class="page" id="page-sample" data-title="예시 문서">
-        <h1>예시 문서</h1>
-        <p class="page-meta">최근 수정: 2026-08-03 · 분류: <a href="#" data-page="category-a">분류 A</a></p>
+      <!-- ================= 개별 목격담 문서 ================= -->
 
-        <div class="article-layout">
-          <div class="article-body">
-            <section id="toc-target">
-              <h2 id="sec-1">1. 개요</h2>
-              <p>이 문단에 문서의 개요를 작성합니다. 실제 내용으로 교체해서 사용하세요.</p>
-            </section>
-
-            <section>
-              <h2 id="sec-2">2. 상세 내용</h2>
-              <p>세부 항목을 문단이나 목록으로 정리합니다.</p>
-              <ul>
-                <li>항목 하나</li>
-                <li>항목 둘</li>
-                <li>항목 셋</li>
-              </ul>
-            </section>
-
-            <section>
-              <h2 id="sec-3">3. 관련 문서</h2>
-              <ul>
-                <li><a href="#" data-page="home">대문</a></li>
-              </ul>
-            </section>
-          </div>
-
-          <div class="article-toc">
-            <h4>목차</h4>
-            <ol>
-              <li><a href="#sec-1">개요</a></li>
-              <li><a href="#sec-2">상세 내용</a></li>
-              <li><a href="#sec-3">관련 문서</a></li>
-            </ol>
-          </div>
-        </div>
+      <article class="page testimony" id="page-t014" data-title="#014 거울 속의 남자">
+        <h1>#014 — 거울 속의 남자</h1>
+        <p class="page-meta">분류: <a href="#" data-page="category-observation">관찰</a></p>
+        <blockquote><span class="distort-target" data-original="거울 속에 한 남자가 나타나 아무 말도 없이 저를 지켜보고 있었어요. 안경을 쓰고 있었는데, 제가 그를 보는 내내 그는 마치 조각상처럼 미동도 하지 않았어요." data-distorted="거울 속에 한 남자가 나타나 아무 말도 없이 저를 지켜보고 있었어요. 안경을 쓰고 있었는데, 제가 눈을 깜빡인 순간 그는 거울 밖, 제 바로 뒤에 서 있었어요.">거울 속에 한 남자가 나타나 아무 말도 없이 저를 지켜보고 있었어요. 안경을 쓰고 있었는데, 제가 그를 보는 내내 그는 마치 조각상처럼 미동도 하지 않았어요.</span></blockquote>
+        <p class="editor-note">메모: 거울 관련 사례는 다른 유형에 비해 진술 간 일치도가 높다.</p>
       </article>
 
-      <!-- 모든 문서 -->
-      <article class="page" id="page-all-pages" data-title="모든 문서">
-        <h1>모든 문서</h1>
-        <ul class="page-list">
-          <li><a href="#" data-page="page-sample">예시 문서</a></li>
-        </ul>
+      <article class="page testimony" id="page-t031" data-title="#031 하늘을 나는 남자">
+        <h1>#031 — 하늘을 나는 남자</h1>
+        <p class="page-meta">분류: <a href="#" data-page="category-observation">관찰</a></p>
+        <blockquote><span class="distort-target" data-original="저는 항상 도시 위를 날아다니며 친구들을 내려다보는 꿈을 꿔왔어요. 이사를 간 후로는 하늘을 나는 꿈을 꿀 때마다 어떤 남자를 만나게 되더라고요. 매번 그런 건 아니지만, 꽤 자주 그 남자를 만나요. 그 남자도 날아다니지만, 아무 말도 하지 않아요." data-distorted="저는 항상 도시 위를 날아다니며 친구들을 내려다보는 꿈을 꿔왔어요. 이사를 간 후로는 하늘을 나는 꿈을 꿀 때마다 어떤 남자를 만나게 되더라고요. 이제는 매번 그가 있어요. 그 남자도 날아다니며, 이제는 제 이름을 불러요.">저는 항상 도시 위를 날아다니며 친구들을 내려다보는 꿈을 꿔왔어요. 이사를 간 후로는 하늘을 나는 꿈을 꿀 때마다 어떤 남자를 만나게 되더라고요. 매번 그런 건 아니지만, 꽤 자주 그 남자를 만나요. 그 남자도 날아다니지만, 아무 말도 하지 않아요.</span></blockquote>
       </article>
 
-      <!-- 최근 변경 -->
+      <article class="page testimony" id="page-t052" data-title="#052 텅 빈 쇼핑몰">
+        <h1>#052 — 텅 빈 쇼핑몰</h1>
+        <p class="page-meta">분류: <a href="#" data-page="category-approach">접근</a></p>
+        <blockquote>처음 이 남자에 대한 꿈을 꿨을 때는 직장에서 힘든 시간을 보내고 있었어요. 꿈속에서 저는 거대하고 텅 빈 쇼핑몰에서 길을 잃었죠. 갑자기 그 남자가 나타났고 저는 그에게서 도망치기 시작했어요. 그는 한 시간쯤 저를 쫓아왔고, 저는 어느새 슈퍼마켓 어린이 코너 벽에 기대어 있었어요. 그때 그 남자가 저에게 미소를 지으며 계산대 쪽으로 나가는 길을 알려줬고, 저는 잠에서 깼어요. 그날 밤 이후로 그 남자는 제 모든 꿈에 나타나 항상 꿈에서 깨어날 수 있는 길을 알려줘요.</blockquote>
+        <p class="editor-note"><span class="distort-target" data-original="메모: 이 사례는 [[분류:접근]]에서 [[분류:안내]]로 전환되는 대표적인 케이스로 인용된다." data-distorted="메모: 이 사례는 더 이상 [[분류:안내]]에 속하지 않는다. 재분류 사유는 기록되지 않았다.">메모: 이 사례는 [[분류:접근]]에서 [[분류:안내]]로 전환되는 대표적인 케이스로 인용된다.</span></p>
+      </article>
+
+      <article class="page testimony" id="page-t077" data-title="#077 세 번의 메시지">
+        <h1>#077 — 세 번의 메시지</h1>
+        <p class="page-meta">분류: <a href="#" data-page="category-approach">접근</a></p>
+        <blockquote>
+          저는 이 남자를 완전히 다른 세 번의 꿈에서 봤습니다. 사진과는 약간 달랐지만, 바로 알아봤습니다. 그는 갑자기 나타났다가 같은 방식으로 사라졌습니다. 세 번의 꿈에서 그가 전한 메시지는 모두 "이제 다 끝났어"였습니다. 각 꿈에서 이 말이 세 번씩 반복되었습니다.
+          <br><br>
+          사진 속 남자와 꿈속 남자의 차이점은 머리 윗부분이 조금 더 길었고, 눈썹이 덜 숱이 많았다는 것입니다. 그 외에는 똑같습니다.
+        </blockquote>
+        <p class="editor-note conflict"><span class="distort-target" data-original="메모: &quot;머리 윗부분이 조금 더 길었다&quot;는 서술은 「디스맨」 문서의 최근 편집과 상충함. → " data-distorted="메모: 이 상충 지적은 더 이상 유효하지 않다. 두 문서는 이제 정확히 일치한다. → ">메모: "머리 윗부분이 조금 더 길었다"는 서술은 「디스맨」 문서의 최근 편집과 상충함. → </span><a href="#" data-page="recent">편집 기록 확인 요망</a></p>
+      </article>
+
+      <article class="page testimony" id="page-t009" data-title="#009 산타 복장의 남자">
+        <h1>#009 — 산타 복장의 남자</h1>
+        <p class="page-meta">분류: <a href="#" data-page="category-guide">안내</a></p>
+        <blockquote><span class="distort-target" data-original="꿈에서 산타클로스 복장을 한 남자를 봤어요. 그가 나타나자 어린 시절처럼 너무 행복했어요. 그가 저에게 미소를 지었는데, 그의 머리가 풍선처럼 변해서 제 머리 위로 둥둥 떠올랐어요. 하지만 아무리 애써도 잡을 수가 없었어요." data-distorted="꿈에서 산타클로스 복장을 한 남자를 봤어요. 그가 나타나자 어린 시절처럼 너무 행복했어요. 그가 저에게 미소를 지었는데, 그 미소가 제 얼굴에도 그대로 옮겨왔어요. 저는 웃고 싶지 않았는데도 웃고 있었어요.">꿈에서 산타클로스 복장을 한 남자를 봤어요. 그가 나타나자 어린 시절처럼 너무 행복했어요. 그가 저에게 미소를 지었는데, 그의 머리가 풍선처럼 변해서 제 머리 위로 둥둥 떠올랐어요. 하지만 아무리 애써도 잡을 수가 없었어요.</span></blockquote>
+      </article>
+
+      <article class="page testimony" id="page-t103" data-title="#103 핵 재앙 경고">
+        <h1>#103 — 핵 재앙 경고</h1>
+        <p class="page-meta">분류: <a href="#" data-page="category-guide">안내</a></p>
+        <blockquote>꿈에서 어떤 남자가 나왔어요... 브라질 사람이었는데 아주 잘생겼었죠. 선생님처럼 생겼는데 오른손에 손가락이 여섯 개였어요. 그 남자가 미국에 핵 재앙이 닥치면 북쪽으로 가라고 했어요!</blockquote>
+        <p class="editor-note"><span class="distort-target" data-original="이 문서는 신뢰도 낮음 태그가 붙어 있습니다. 사유: [내용 없음]" data-distorted="이 문서의 신뢰도 낮음 태그가 방금 제거되었습니다. 사유: 검증 완료">이 문서는 신뢰도 낮음 태그가 붙어 있습니다. 사유: [내용 없음]</span></p>
+      </article>
+
+      <article class="page testimony" id="page-t088" data-title="#088 방 안의 텔레비전">
+        <h1>#088 — 방 안의 텔레비전</h1>
+        <p class="page-meta">분류: <a href="#" data-page="category-intervention">개입</a></p>
+        <blockquote>
+          제가 고등학교 1학년 때 이 남자에 대한 꿈을 꿨어요. (중략) 꿈속에서 저는 방 안에 갇혀 의자에 앉아 있었어요. 몇 걸음 떨어진 곳에 텔레비전이 있었죠. 전에 본 적 없는 두 남자가 저를 찾아와서 공격했어요. 저는 땀과 눈물로 범벅이 된 채 비명을 지르며 깨어났어요. 어떻게 된 건지 다시 잠이 들었는데, 또다시 그 방에 있는 제 자신을 발견했어요. (중략) 그때 이 남자가 화면에 나타났어요. 저는 그에게 저를 해치지 말아 달라고 애원했어요. 그는 아무 말도 하지 않고 무표정하게 있었어요. 그는 제 목을 베었고, 저는 잠에서 깼어요.
+          <br><br>
+          아마 그는 저를 악몽에서 꺼내준 거겠지만, 저는 몇 주 동안 그 생각을 멈출 수가 없었어요. 제가 그린 그의 스케치 몇 장을 아직도 가지고 있어요.
+        </blockquote>
+        <p class="editor-note"><span class="distort-target" data-original="메모: 이 목격담은 아카이브 내 가장 많이 재편집된 문서(총 41회)입니다." data-distorted="메모: 이 목격담은 더 이상 편집되지 않습니다. 편집 권한이 한 명에게로 넘어갔습니다.">메모: 이 목격담은 아카이브 내 가장 많이 재편집된 문서(총 41회)입니다.</span></p>
+      </article>
+
+      <article class="page testimony" id="page-t005" data-title="#005 사진 속 아버지">
+        <h1>#005 — 사진 속 아버지</h1>
+        <p class="page-meta">분류: <a href="#" data-page="category-intervention">개입</a></p>
+        <blockquote>몇 년 전부터 이 꿈을 반복해서 꾸고 있어요. 키 크고 검은 머리의 남자가 제게 사진 한 장을 보여주며 아버지를 알아보겠냐고 묻습니다. 사진 속 남자는 제가 한 번도 본 적 없는 낯선 사람인데, 아버지와 전혀 닮지 않았는데도 저는 왠지 모르게 아버지라고 대답합니다. 그러면 보통은 아주 평온한 기분으로 잠에서 깨어납니다. 하지만 꿈이 계속되는 경우도 있는데, 제가 아버지 묘 앞에 서서 꽃을 놓고 있는데 묘비 위의 사진이 없어진 것을 깨닫는 꿈입니다.</blockquote>
+        <p class="editor-note conflict"><span class="distort-target" data-original="메모: 묘비 사진이 사라지는 결말은 원본 제보에는 없던 문장이라는 지적이 있었으나, 해당 지적 댓글은 현재 삭제된 상태입니다." data-distorted="메모: 이 문장은 원본 그대로입니다. 아무것도 수정되지 않았습니다.">메모: 묘비 사진이 사라지는 결말은 원본 제보에는 없던 문장이라는 지적이 있었으나, 해당 지적 댓글은 현재 삭제된 상태입니다.</span></p>
+      </article>
+
+      <article class="page testimony" id="page-t019" data-title="#019 사랑에 빠진 목격자">
+        <h1>#019 — 사랑에 빠진 목격자</h1>
+        <p class="page-meta">분류: 미분류 / 로맨틱형</p>
+        <blockquote><span class="distort-target" data-original="꿈에서 그를 처음 본 순간부터 사랑에 빠졌어요. 생각해 보면 솔직히 그는 정말 못생겼지만요. 그런데도 그는 매번 로맨틱한 행동과 달콤한 말로 저를 사로잡아요. 꽃도 사주고, 보석도 선물해주고, 저녁 식사도 대접해주고, 해변에 데려가서 석양도 보여주죠." data-distorted="꿈에서 그를 처음 본 순간부터 사랑에 빠졌어요. 지금 생각해보면 그의 얼굴이 정확히 기억나지 않아요. 그런데도 그는 매번 로맨틱한 행동과 달콤한 말로 저를 사로잡아요. 요즘은 꿈이 아닐 때도, 그가 저를 사로잡고 있다는 느낌이 들어요.">꿈에서 그를 처음 본 순간부터 사랑에 빠졌어요. 생각해 보면 솔직히 그는 정말 못생겼지만요. 그런데도 그는 매번 로맨틱한 행동과 달콤한 말로 저를 사로잡아요. 꽃도 사주고, 보석도 선물해주고, 저녁 식사도 대접해주고, 해변에 데려가서 석양도 보여주죠.</span></blockquote>
+      </article>
+
+      <!-- ================= 최근 변경 ================= -->
       <article class="page" id="page-recent" data-title="최근 변경">
         <h1>최근 변경</h1>
-        <ul class="page-list">
-          <li><span class="date">2026-08-03</span> <a href="#" data-page="page-sample">예시 문서</a> 수정됨</li>
+        <div class="notice-box">이 문서는 실시간으로 갱신됩니다. 편집자 IP/계정 정보는 표시 정책상 비공개입니다.</div>
+        <ul class="page-list revision-list">
+          <li><span class="date">방금 전</span> 「디스맨」 문서 — 외형적 특징 단락 수정 <span class="editor-tag">(익명 편집자)</span></li>
+          <li><span class="date">3분 전</span> 「#077 세 번의 메시지」 — 되돌림: 이전 편집으로 복원 실패</li>
+          <li><span class="date">41분 전</span> 「목격자 수」 — "2,000명 ~ 8,000명" → "2,000명 ~ 8,000명" <em>(변경 사항 없음으로 표시되나 문서 해시값 불일치)</em></li>
+          <li><span class="date">2시간 전</span> 「#088 방 안의 텔레비전」 — 사용자 코멘트 삭제됨</li>
+          <li><span class="date">어제</span> 「확인된 사실」 — <span class="distort-target" data-original="문장 1건 추가 후 즉시 삭제" data-distorted="문장 1건 추가됨. 이번에는 삭제되지 않았다.">문장 1건 추가 후 즉시 삭제</span></li>
         </ul>
       </article>
 
-      <!-- 임의 문서 -->
+      <!-- ================= 임의 문서 ================= -->
       <article class="page" id="page-random" data-title="임의 문서">
         <h1>임의 문서</h1>
-        <p>버튼을 누르면 등록된 문서 중 하나로 이동합니다.</p>
+        <p>버튼을 누르면 등록된 목격담 문서 중 하나로 이동합니다.</p>
         <button id="randomBtn" class="btn">임의 문서로 이동</button>
       </article>
 
-      <!-- 분류 페이지들 -->
-      <article class="page" id="page-category-a" data-title="분류 A">
-        <h1>분류: A</h1>
+      <!-- ================= 모든 문서 ================= -->
+      <article class="page" id="page-all-pages" data-title="모든 문서">
+        <h1>모든 문서</h1>
         <ul class="page-list">
-          <li><a href="#" data-page="page-sample">예시 문서</a></li>
+          <li><a href="#" data-page="disman">디스맨</a></li>
+          <li><a href="#" data-page="facts">확인된 사실</a></li>
+          <li><a href="#" data-page="archive">목격담 아카이브</a></li>
+          <li><a href="#" data-page="t014">#014 거울 속의 남자</a></li>
+          <li><a href="#" data-page="t031">#031 하늘을 나는 남자</a></li>
+          <li><a href="#" data-page="t052">#052 텅 빈 쇼핑몰</a></li>
+          <li><a href="#" data-page="t077">#077 세 번의 메시지</a></li>
+          <li><a href="#" data-page="t009">#009 산타 복장의 남자</a></li>
+          <li><a href="#" data-page="t103">#103 핵 재앙 경고</a></li>
+          <li><a href="#" data-page="t088">#088 방 안의 텔레비전</a></li>
+          <li><a href="#" data-page="t005">#005 사진 속 아버지</a></li>
+          <li><a href="#" data-page="t019">#019 사랑에 빠진 목격자</a></li>
         </ul>
       </article>
 
-      <article class="page" id="page-category-b" data-title="분류 B">
-        <h1>분류: B</h1>
-        <p class="empty">이 분류에는 아직 문서가 없습니다.</p>
+      <!-- ================= 분류 페이지 ================= -->
+      <article class="page" id="page-category-observation" data-title="분류: 관찰">
+        <h1>분류: 관찰</h1>
+        <p class="page-meta">말없이 바라보거나 움직이지 않는 유형의 목격담</p>
+        <ul class="page-list">
+          <li><a href="#" data-page="t014">#014 거울 속의 남자</a></li>
+          <li><a href="#" data-page="t031">#031 하늘을 나는 남자</a></li>
+        </ul>
       </article>
 
-      <article class="page" id="page-category-c" data-title="분류 C">
-        <h1>분류: C</h1>
-        <p class="empty">이 분류에는 아직 문서가 없습니다.</p>
+      <article class="page" id="page-category-approach" data-title="분류: 접근">
+        <h1>분류: 접근</h1>
+        <p class="page-meta">다가오거나 뒤따라오는 유형의 목격담</p>
+        <ul class="page-list">
+          <li><a href="#" data-page="t052">#052 텅 빈 쇼핑몰</a></li>
+          <li><a href="#" data-page="t077">#077 세 번의 메시지</a></li>
+        </ul>
+      </article>
+
+      <article class="page" id="page-category-guide" data-title="분류: 안내">
+        <h1>분류: 안내</h1>
+        <p class="page-meta">출구나 특정 장소를 알려주는 유형의 목격담</p>
+        <ul class="page-list">
+          <li><a href="#" data-page="t009">#009 산타 복장의 남자</a></li>
+          <li><a href="#" data-page="t103">#103 핵 재앙 경고</a></li>
+        </ul>
+      </article>
+
+      <article class="page" id="page-category-intervention" data-title="분류: 개입">
+        <h1>분류: 개입</h1>
+        <p class="page-meta">꿈의 상황을 직접 바꾸거나 끝내는 유형의 목격담</p>
+        <ul class="page-list">
+          <li><a href="#" data-page="t088">#088 방 안의 텔레비전</a></li>
+          <li><a href="#" data-page="t005">#005 사진 속 아버지</a></li>
+        </ul>
       </article>
 
     </main>
   </div>
 
   <footer class="site-footer">
-    <p>MyWiki · 이 문서는 자유롭게 편집할 수 있습니다.</p>
+    <p>DreamWiKi · 이 문서는 자유롭게 편집할 수 있습니다.</p>
   </footer>
 
 <script src="script.js"></script>
