@@ -5,9 +5,11 @@ var corruptedCount = 0;
 var BASE_INK = '#1f2a24';
 var BASE_LINE = '#000000';
 var BASE_BG = '#ffffff';
+var BASE_PANEL = '#dadada';
 var CORRUPT_INK = '#2b1f4d';   // 텍스트: 어두운 보라 (가독성 유지)
 var CORRUPT_LINE = '#4c3a90'; // 테두리/밑줄: 메인 보라
 var CORRUPT_BG = '#e4daf5';   // 배경: 옅은 보라 워시
+var CORRUPT_PANEL = '#c3bad2'; // 패널/회색 영역: bg 대비 원래와 동일한 명도차를 유지한 보라 회색
 
 function hexToRgb(hex) {
   hex = hex.replace('#', '');
@@ -31,6 +33,7 @@ function updateCorruptionLevel() {
   document.documentElement.style.setProperty('--ink', lerpColor(BASE_INK, CORRUPT_INK, tEff));
   document.documentElement.style.setProperty('--line', lerpColor(BASE_LINE, CORRUPT_LINE, tEff));
   document.documentElement.style.setProperty('--bg', lerpColor(BASE_BG, CORRUPT_BG, tEff));
+  document.documentElement.style.setProperty('--bg-panel', lerpColor(BASE_PANEL, CORRUPT_PANEL, tEff));
 
   var overlay = document.getElementById('corruption-overlay');
   if (overlay) overlay.style.opacity = (tEff * 0.28).toFixed(2);

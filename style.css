@@ -81,7 +81,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   width: 32px;
   height: 32px;
   object-fit: cover;
-  transform: scale(1.5); /* 이미지 원본의 여백을 잘라낸 것처럼 확대 크롭 */
+  transform: scale(1.9); /* 이미지 원본의 여백을 잘라낸 것처럼 확대 크롭 */
 }
 
 .search-form {
@@ -324,7 +324,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 
 .dispute-notice {
   clear: both;
-  background: #dadada;
+  background: var(--bg-panel);
   border: 1px solid var(--accent-soft);
   padding: 8px 12px;
   font-size: 0.85rem;
