@@ -494,3 +494,13 @@ body.fully-corrupted .site-header {
   color: var(--accent);
   font-style: italic;
 }
+
+@media (min-width: 100rem) {
+   html {
+      font-size: 19px;
+   }
+   .layout,
+   .header-inner {
+      max-width: 90rem;
+   }
+}
