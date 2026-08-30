@@ -497,10 +497,10 @@ body.fully-corrupted .site-header {
 
 @media (min-width: 100rem) {
    html {
-      font-size: 19px;
+      font-size: 25px;
    }
    .layout,
    .header-inner {
-      max-width: 90rem;
+      max-width: 70rem;
    }
 }
